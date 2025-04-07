@@ -22,6 +22,7 @@ export const authOptions = {
 
             session.user.id = sessionUser._id.toString();
             session.user.phone = sessionUser.phone;
+            session.user.image = sessionUser.image;
             return session;
         },
         async signIn({ profile }) {

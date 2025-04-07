@@ -21,6 +21,10 @@ const TeamsSchema = new Schema({
     type: Boolean,
     default: false, // true for teams made from individual registrations
   },
+  payment:{
+    type: Schema.Types.ObjectId,
+    ref: "Payments"
+  }
 }, {
   timestamps: true,
 });

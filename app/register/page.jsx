@@ -47,16 +47,16 @@ export default function Page() {
                 <Link href="/register/team" className="flex flex-col items-center justify-center bg-sky-600 rounded-2xl p-6 md:p-10 transition-all duration-100 active:scale-90 hover:ring-2">
                     <Users size={36} className="size-20" />
                     <span className="mt-4 text-base md:text-lg font-semibold text-center">Team Registration</span>
-                    <span className="text-sm md:text-base font-bold">₹ 599 /-</span>
+                    <span className="text-2xl font-bold">₹ 599 /-</span>
                     <span className="text-xs md:text-sm text-center">
-                        5 player + upto 3 substitutes
+                        5 - 8 players ( 5 playing at a time )
                     </span>
                 </Link>
                 
                 <Link href="/register/individual" className="flex flex-col items-center justify-center bg-zinc-600 rounded-2xl p-6 md:p-10 transition-all duration-100 active:scale-90 hover:ring-2">
                     <User size={36} className="size-20" />
                     <span className="mt-4 text-base md:text-lg font-semibold text-center">Individual Registration</span>
-                    <span className="text-sm md:text-base font-bold">₹ 89 /-</span>
+                    <span className="text-2xl font-bold">₹ 99 /-</span>
                     <span className="text-xs md:text-sm text-center">
                         Will be put in a team by organizers.
                     </span>

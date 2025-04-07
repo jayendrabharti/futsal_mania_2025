@@ -6,6 +6,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/utils/authOptions";
 import User from "@/models/user";
 import Teams from "@/models/teams";
+import Payments from "@/models/payments";
 
 
 export async function RegisterIndividual(data) {
@@ -17,6 +18,15 @@ export async function RegisterIndividual(data) {
         };
 
         await connectToDB();
+
+        const paymentData = await Payments.create({
+            transactionId: data.transactionId,
+            imageUrl: data.paymentImageURL,
+            user: session.user.id,
+            amount: 99,
+            type: "individual"
+        });
+
         const playerData = await Players.create({
             category: "player",
             isIndividual: true,
@@ -29,7 +39,8 @@ export async function RegisterIndividual(data) {
                 regNo: data.regNo,
                 year: data.year,
                 course: data.course,
-            }
+            },
+            payment: paymentData._id
         })
 
         if(playerData){
@@ -48,7 +59,7 @@ export async function RegisterTeam(data){
     try {
         const captain = { ...data.captain, category: "captain" };
         const players = data.players.map(p => ({ ...p, category: "player" }));
-        const substitutes = data.substitutes.map(p => ({ ...p, category: "substitute" }));
+        const substitutes = data.substitutes.map(p => ({ ...p, category: "player" }));
 
         const teamList = [
             captain,
@@ -64,6 +75,14 @@ export async function RegisterTeam(data){
             throw new Error(`Registration failed`);
         };
 
+        const paymentData = await Payments.create({
+            transactionId: data.transactionId,
+            imageUrl: data.paymentImageURL,
+            user: session.user.id,
+            amount: 599,
+            type: "team",
+        });
+
         for (const p of teamList) {
             const pdata = await User.findOne({ email: p.email });
             if (pdata?.isRegistered) {
@@ -74,7 +93,8 @@ export async function RegisterTeam(data){
         const teamData = await Teams.create({
             teamName: data.teamName,
             captain: session.user.id,
-            isGeneratedTeam: false
+            isGeneratedTeam: false,
+            payment: paymentData._id,
         })
 
         let playerIds = [];

@@ -7,12 +7,16 @@ import { RegisterIndividual } from '@/actions/registeration';
 import Link from 'next/link';
 import { ThumbsUp } from 'lucide-react';
 import { useSession } from 'next-auth/react';
+import paymentQR from '@/public/images/paymentQR.jpg';
+import Image from 'next/image';
+import uploadImage from '@/utils/uploadImage';
 
 export default function IndividualRegistrationForm() {
 
     const {data:session} = useSession();
     const [submitted, setSubmitted] = useState(false);
     const [success,setSuccess] = useState(false);
+    const [paymentImageURL,setPaymentImageURL] = useState(null);
 
   const initialValues = {
     name: session?.user?.name || '',
@@ -21,6 +25,7 @@ export default function IndividualRegistrationForm() {
     regNo: '',
     year: '',
     course: '',
+    transactionId: '',
   };
 
   const validationSchema = Yup.object({
@@ -36,9 +41,15 @@ export default function IndividualRegistrationForm() {
       .oneOf(['1', '2', '3', '4', '5'], 'Select a valid year')
       .required('Year is required'),
     course: Yup.string(),
+    transactionId: Yup.string().required(),
   });
 
 const handleSubmit = async (values) => {
+    if(!paymentImageURL){
+      alert("You must Upload payment Screenshot");
+      return;
+    }
+    values.paymentImageURL = paymentImageURL;
     console.log(values);
     setSubmitted(true);
     try {
@@ -57,76 +68,125 @@ const handleSubmit = async (values) => {
 };
 
 return (
-    <div className="flex flex-col items-center overflow-y-scroll pb-10">
+  <div className="flex flex-col items-center overflow-y-scroll pb-10">
 
-        <h2 className="text-4xl font-bold mb-10 text-center sticky top-0 bg-black pt-5 p-2 w-full z-10">Individual Registration</h2>
+    <h2 className="text-4xl font-bold mb-10 text-center sticky top-0 bg-black pt-5 p-2 w-full z-10">Individual Registration</h2>
 
-        {success
-        ?
-        <div className='flex flex-col justify-center h-full w-full items-center'>
-            <span className='text-2xl text-green-400 flex flex-row mb-4'>You are Successfully registered<ThumbsUp className='ml-2'/></span>
-            <Link 
-                href={'/dashboard'}
-                className='py-2 px-4 hover:bg-gray-900 bg-gray-700 transition-all duration-100 active:scale-90 rounded-full'
-            >Go to Dashboard</Link>
-        </div>
-        :
-        submitted
-        ?
-        <div>Registering you...</div>
-        :
-        <Formik
-            initialValues={initialValues}
-            validationSchema={validationSchema}
-            onSubmit={handleSubmit}
-        >
-        <Form className="space-y-6 w-full max-w-2xl">
-
-            <div className="my-8 bg-yellow-50 dark:bg-yellow-900 border-l-4 border-yellow-400 dark:border-yellow-600 p-4">
-              <p className="text-yellow-700 dark:text-yellow-300">
-                Note: You will be put in a team by organizers.
-              </p>
-            </div>
-
-            <InputField label="Name" name="name" />
-            <InputField label="Email" name="email" type="email" disabled={true} />
-            <InputField label="Phone" name="phone" />
-            <InputField label="Registration Number" name="regNo" />
-
-            <div className='relative'>
-                <label className="block mb-2 font-medium text-gray-300">Year</label>
-                <Field
-                    as="select"
-                    name="year"
-                    className="w-full border border-gray-700 text-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                >
-                    <option value="" className="bg-black text-gray-300">Select Year</option>
-                    <option value="1" className="bg-black text-gray-300">1st Year</option>
-                    <option value="2" className="bg-black text-gray-300">2nd Year</option>
-                    <option value="3" className="bg-black text-gray-300">3rd Year</option>
-                    <option value="4" className="bg-black text-gray-300">4th Year</option>
-                    <option value="5" className="bg-black text-gray-300">5th Year</option>
-                </Field>
-                <ErrorMessage
-                    name="year"
-                    component="p"
-                    className="text-red-400 text-sm mt-2 absolute bottom-0 right-2"
-                />
-            </div>
-
-            <InputField label="Course" name="course" />
-
-            <button
-                type="submit"
-                className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-blue-700 transition duration-300"
-            >
-                Submit
-            </button>
-        </Form>
-        </Formik>
-        }
-        
+    {success
+    ?
+    <div className='flex flex-col justify-center h-full w-full items-center'>
+      <span className='text-2xl text-green-400 flex flex-row mb-4'>You are Successfully registered<ThumbsUp className='ml-2'/></span>
+      <Link 
+        href={'/dashboard'}
+        className='py-2 px-4 hover:bg-gray-900 bg-gray-700 transition-all duration-100 active:scale-90 rounded-full'
+      >Go to Dashboard</Link>
     </div>
+    :
+    submitted
+    ?
+    <div>Registering you...</div>
+    :
+    <Formik
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      onSubmit={handleSubmit}
+    >
+    <Form className="space-y-6 w-full max-w-2xl">
+
+      <div className="my-8 bg-yellow-50 dark:bg-yellow-900 border-l-4 border-yellow-400 dark:border-yellow-600 p-4">
+        <p className="text-yellow-700 dark:text-yellow-300">
+        Note: You will be put in a team by organizers.
+        </p>
+      </div>
+
+      <InputField label="Name" name="name" />
+      <InputField label="Email" name="email" type="email" disabled={true} />
+      <InputField label="Phone" name="phone" />
+      <InputField label="Registration Number" name="regNo" />
+
+      <div className='relative'>
+        <label className="block mb-2 font-medium text-gray-300">Year</label>
+        <Field
+          as="select"
+          name="year"
+          className="w-full border border-gray-700 text-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          <option value="" className="bg-black text-gray-300">Select Year</option>
+          <option value="1" className="bg-black text-gray-300">1st Year</option>
+          <option value="2" className="bg-black text-gray-300">2nd Year</option>
+          <option value="3" className="bg-black text-gray-300">3rd Year</option>
+          <option value="4" className="bg-black text-gray-300">4th Year</option>
+          <option value="5" className="bg-black text-gray-300">5th Year</option>
+        </Field>
+        <ErrorMessage
+          name="year"
+          component="p"
+          className="text-red-400 text-sm mt-2 absolute bottom-0 right-2"
+        />
+      </div>
+
+      <InputField label="Course" name="course" />
+
+      
+      <div className='p-4 bg-zinc-700 rounded-3xl flex flex-col justify-between items-center'>
+        <Image
+        src={paymentQR}
+        alt={'paymentqr'}
+        width={500}
+        height={500}
+        className='w-[200px] mx-auto rounded-2xl'
+        />
+        <span className='font-bold text-2xl p-2'>Pay ₹ 99 /- </span>
+        <span>Make payment, Upload Payment Screenshot and fill in transaction ID </span>
+      </div>
+      
+      <div className="relative">
+        <label className="block mb-2 font-medium text-gray-300">Upload Payment Screenshot</label>
+        <input 
+        type="file" 
+        accept="image/*" 
+        onChange={async (e) => {
+          const file = e.target.files[0];
+          if (file) {
+          try {
+            
+            const data = await uploadImage(file);
+            alert("Upload successful! Image URL");
+            console.log(data);
+            setPaymentImageURL(data.url);
+          } catch (err) {
+            console.error(err);
+            alert("Upload failed");
+          }
+          }
+        }} 
+        className="block w-full text-sm text-gray-300 border border-gray-700 rounded-lg cursor-pointer bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700"
+        />
+      </div>
+
+      {paymentImageURL && 
+        <img
+          src={paymentImageURL}
+          alt='paymentss'
+          width={200}
+          height={200}
+          className='mx-auto'
+        />
+      }
+
+      <InputField label="Transaction ID" name="transactionId" />
+
+      <button
+        type="submit"
+        className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-blue-700 transition duration-300"
+      >
+        Submit
+      </button>
+    </Form>
+    </Formik>
+    }
+    
+  </div>
 );
 }
 

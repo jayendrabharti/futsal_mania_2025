@@ -39,6 +39,10 @@ const PlayersSchema = new Schema({
     type: Schema.Types.Mixed,
     default: {},
   },
+  payment:{
+    type: Schema.Types.ObjectId,
+    ref: "Payments"
+  }
 }, {
   timestamps: true,
 });

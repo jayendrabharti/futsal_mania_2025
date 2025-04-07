@@ -7,12 +7,16 @@ import { useState } from 'react';
 import { ThumbsUp } from 'lucide-react';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
+import paymentQR from '@/public/images/paymentQR.jpg';
+import Image from 'next/image';
+import uploadImage from '@/utils/uploadImage';
 
 export default function TeamRegistrationForm() {
 
     const {data:session} = useSession();
     const [submitted, setSubmitted] = useState(false);
     const [success, setSuccess] = useState(false);
+    const [paymentImageURL,setPaymentImageURL] = useState(null);
 
     const initialPlayer = { name: '', regNo: '', year: '', course: '', email: '', phone: '' };
 
@@ -28,6 +32,7 @@ export default function TeamRegistrationForm() {
         },
         players: Array(4).fill({ ...initialPlayer }),
         substitutes: [],
+        transactionId: "",
     };
 
     const playerSchema = Yup.object({
@@ -46,9 +51,15 @@ export default function TeamRegistrationForm() {
         captain: playerSchema,
         players: Yup.array().of(playerSchema),
         substitutes: Yup.array().of(playerSchema),
+        transactionId: Yup.string().required(),
     });
  
     const handleSubmit = async (values) => {
+        if(!paymentImageURL){
+            alert("You must Upload payment Screenshot");
+            return;
+          }
+        values.paymentImageURL = paymentImageURL;
         setSubmitted(true);
         try {
             console.log(values)
@@ -118,22 +129,21 @@ export default function TeamRegistrationForm() {
                                 {({ push, remove }) => (
                                     <>
                                         <div className="flex justify-between items-center mt-6">
-                                            <h3 className="text-xl font-semibold">Substitutes ({values.substitutes.length})</h3>
                                             <button
                                                 type="button"
                                                 onClick={() => {
                                                     if(values.substitutes.length < 3)
                                                     push({ ...initialPlayer })
                                                 }}
-                                                className="px-3 py-1 bg-blue-700 text-white rounded-md hover:bg-blue-800"
+                                                className="px-3 py-1 bg-blue-700 text-white rounded-md hover:bg-blue-800 ml-auto"
                                             >
-                                                + Add Substitute
+                                                + Add Player
                                             </button>
                                         </div>
 
                                         {values.substitutes.map((_, index) => (
                                             <div key={index} className="relative border border-gray-600 p-4 mt-4 rounded-lg">
-                                                <h4 className="font-medium">Substitute {index + 1}</h4>
+                                                <h4 className="font-medium">Player {index + 6}</h4>
                                                 <PlayerFields baseName={`substitutes[${index}]`} />
                                                 <button
                                                     type="button"
@@ -147,6 +157,54 @@ export default function TeamRegistrationForm() {
                                     </>
                                 )}
                             </FieldArray>
+
+                            <div className='p-4 bg-zinc-700 rounded-3xl flex flex-col justify-between items-center'>
+                                <Image
+                                    src={paymentQR}
+                                    alt={'paymentqr'}
+                                    width={500}
+                                    height={500}
+                                    className='w-[200px] mx-auto rounded-2xl'
+                                />
+                                <span className='font-bold text-2xl p-2'>Pay ₹ 599 /- </span>
+                                <span>Make payment, Upload Payment Screenshot and fill in transaction ID </span>
+                            </div>
+                            
+                            <div className="relative">
+                                <label className="block mb-2 font-medium text-gray-300">Upload Payment Screenshot</label>
+                                <input 
+                                type="file" 
+                                accept="image/*" 
+                                onChange={async (e) => {
+                                const file = e.target.files[0];
+                                if (file) {
+                                try {
+                                    
+                                    const data = await uploadImage(file);
+                                    alert("Upload successful! Image URL");
+                                    console.log(data);
+                                    setPaymentImageURL(data.url);
+                                } catch (err) {
+                                    console.error(err);
+                                    alert("Upload failed");
+                                }
+                                }
+                                }} 
+                                className="block w-full text-sm text-gray-300 border border-gray-700 rounded-lg cursor-pointer bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700"
+                                />
+                            </div>
+
+                            {paymentImageURL && 
+                                <img
+                                src={paymentImageURL}
+                                alt='paymentss'
+                                width={200}
+                                height={200}
+                                className='mx-auto'
+                                />
+                            }
+
+                            <InputField label={"Transaction ID"} name="transactionId"/>
 
                             <button
                                 type="submit"
@@ -175,7 +233,7 @@ function PlayerFields({ baseName,disableEmail}) {
         </div>
     );
 }
-
+ 
 // 🧱 Input field component
 function InputField({ label, name, type = 'text',disabled=false}) {
     return (
