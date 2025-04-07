@@ -1,0 +1,219 @@
+'use client';
+
+import { Formik, Form, Field, FieldArray, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import { RegisterTeam } from '@/actions/registeration';
+import { useState } from 'react';
+import { ThumbsUp } from 'lucide-react';
+import Link from 'next/link';
+import { useSession } from 'next-auth/react';
+
+export default function TeamRegistrationForm() {
+
+    const {data:session} = useSession();
+    const [submitted, setSubmitted] = useState(false);
+    const [success, setSuccess] = useState(false);
+
+    const initialPlayer = { name: '', regNo: '', year: '', course: '', email: '', phone: '' };
+
+    const initialValues = {
+        teamName: '',
+        captain: { 
+            name: session?.user?.name || '', 
+            email: session?.user?.email || '', 
+            regNo: '', 
+            year: '', 
+            course: '', 
+            phone: '' 
+        },
+        players: Array(4).fill({ ...initialPlayer }),
+        substitutes: [],
+    };
+
+    const playerSchema = Yup.object({
+        name: Yup.string().required('Name is required'),
+        regNo: Yup.string().required('Reg No is required'),
+        year: Yup.string().oneOf(['1', '2', '3', '4', '5']).required('Year is required'),
+        course: Yup.string().required('Course is required'),
+        email: Yup.string().email('Invalid email').required('Email is required'),
+        phone: Yup.string()
+            .matches(/^\d{10}$/, 'Phone must be a 10-digit number')
+            .required('Phone is required'),
+    });
+
+    const validationSchema = Yup.object({
+        teamName: Yup.string().required('Team name is required'),
+        captain: playerSchema,
+        players: Yup.array().of(playerSchema),
+        substitutes: Yup.array().of(playerSchema),
+    });
+ 
+    const handleSubmit = async (values) => {
+        setSubmitted(true);
+        try {
+            console.log(values)
+            const data = JSON.parse(await RegisterTeam(values));
+            if (data) {
+                setSuccess(true);
+            } else {
+                setSubmitted(false);
+                alert('Registration failed. Please try again.');
+            }
+        } catch (error) {
+            setSubmitted(false);
+            console.error('Error during registration:', error);
+            alert('An error occurred. Please try again later.');
+        }
+    };
+
+    return (
+        <div className="flex flex-col items-center overflow-y-scroll pb-10">
+            <h2 className="text-4xl font-bold mb-10 text-center sticky top-0 bg-black pt-5 p-2 w-full z-10">
+                Team Registration
+            </h2>
+
+            {success ? (
+                <div className='flex flex-col justify-center h-full w-full items-center'>
+                    <span className='text-2xl text-green-400 flex flex-row mb-4'>Team Successfully registered<ThumbsUp className='ml-2'/></span>
+                    <Link 
+                        href={'/dashboard'}
+                        className='py-2 px-4 hover:bg-gray-900 bg-gray-700 transition-all duration-100 active:scale-90 rounded-full'
+                    >Go to Dashboard</Link>
+                </div>
+            ) : submitted ? (
+                <div>Registering team...</div>
+            ) : (
+                <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
+                    {({ values }) => (
+                        <Form className="space-y-6 w-full max-w-3xl px-2">
+
+                            <div className="my-8 bg-yellow-50 dark:bg-yellow-900 border-l-4 border-yellow-400 dark:border-yellow-600 p-4">
+                            <p className="text-yellow-700 dark:text-yellow-300">
+                            Note: The team captain must e-sign this Undertaking and upload here.
+                                </p>
+                            </div>
+                            <div className='w-full flex'>
+                                <a
+                                    href='/docs/futsal_captains_undertaking.docx'
+                                    download
+                                    className="px-2 py-2 bg-green-700 text-white rounded-md hover:bg-green-800 ml-auto"
+                                    >
+                                    Download Undertaking
+                                </a>
+                            </div>
+
+                            <InputField label="Team Name" name="teamName" />
+
+                            <h3 className="text-2xl font-semibold mt-6 mb-2 ml-2">Captain</h3>
+                            <PlayerFields baseName="captain" disableEmail={true}/>
+
+                            {values.players.map((_, index) => (
+                                <div key={index}>
+                                    <h3 className="text-xl font-semibold mt-6 mb-2 ml-2">Player {index + 2}</h3>
+                                    <PlayerFields baseName={`players[${index}]`} />
+                                </div>
+                            ))}
+
+                            <FieldArray name="substitutes">
+                                {({ push, remove }) => (
+                                    <>
+                                        <div className="flex justify-between items-center mt-6">
+                                            <h3 className="text-xl font-semibold">Substitutes ({values.substitutes.length})</h3>
+                                            <button
+                                                type="button"
+                                                onClick={() => {
+                                                    if(values.substitutes.length < 3)
+                                                    push({ ...initialPlayer })
+                                                }}
+                                                className="px-3 py-1 bg-blue-700 text-white rounded-md hover:bg-blue-800"
+                                            >
+                                                + Add Substitute
+                                            </button>
+                                        </div>
+
+                                        {values.substitutes.map((_, index) => (
+                                            <div key={index} className="relative border border-gray-600 p-4 mt-4 rounded-lg">
+                                                <h4 className="font-medium">Substitute {index + 1}</h4>
+                                                <PlayerFields baseName={`substitutes[${index}]`} />
+                                                <button
+                                                    type="button"
+                                                    onClick={() => remove(index)}
+                                                    className="absolute top-2 right-2 text-sm text-blue-700 hover:underline"
+                                                >
+                                                    Remove
+                                                </button>
+                                            </div>
+                                        ))}
+                                    </>
+                                )}
+                            </FieldArray>
+
+                            <button
+                                type="submit"
+                                className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-blue-700 transition duration-300"
+                            >
+                                Submit
+                            </button>
+                        </Form>
+                    )}
+                </Formik>
+            )}
+        </div>
+    );
+}
+
+// 👤 Reusable player fields for captain, players, substitutes
+function PlayerFields({ baseName,disableEmail}) {
+    return (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 border bg-zinc-900 border-gray-600 p-4 rounded-lg">
+            <InputField label="Name" name={`${baseName}.name`} />
+            <InputField label="Registration Number" name={`${baseName}.regNo`} />
+            <SelectField label="Year" name={`${baseName}.year`} />
+            <InputField label="Course" name={`${baseName}.course`} />
+            <InputField label="Email" name={`${baseName}.email`} type="email" disabled={disableEmail}/>
+            <InputField label="Phone" name={`${baseName}.phone`} type="tel" />
+        </div>
+    );
+}
+
+// 🧱 Input field component
+function InputField({ label, name, type = 'text',disabled=false}) {
+    return (
+        <div className="relative">
+            <label htmlFor={name} className="block mb-2 font-medium text-gray-300">
+                {label}
+            </label>
+            <Field
+                type={type}
+                name={name}
+                id={name}
+                placeholder={label}
+                disabled={disabled}
+                className="w-full border border-gray-700 text-gray-300 bg-black rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:brightness-40"
+            />
+            <ErrorMessage name={name} component="p" className="text-red-400 text-sm mt-1" />
+        </div>
+    );
+}
+
+// 📘 Year selector
+function SelectField({ label, name }) {
+    return (
+        <div className="relative">
+            <label className="block mb-2 font-medium text-gray-300">{label}</label>
+            <Field
+                as="select"
+                name={name}
+                className="w-full border border-gray-700 text-gray-300 bg-black rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+                <option value="">Select Year</option>
+                <option value="1">1st Year</option>
+                <option value="2">2nd Year</option>
+                <option value="3">3rd Year</option>
+                <option value="4">4th Year</option>
+                <option value="5">5th Year</option>
+            </Field>
+            <ErrorMessage name={name} component="p" className="text-red-400 text-sm mt-1" />
+        </div>
+    );
+}
