@@ -8,6 +8,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge"
 import Image from "next/image"
+import { formatTimestamp } from "@/utils/common"
 
 
 export default function PaymentsPage() {
@@ -129,7 +130,7 @@ export default function PaymentsPage() {
                                         className="bg-zinc-600 py-1 px-2 rounded hover:bg-zinc-500 active:ring-2 active:ring-black"
                                     >View</button>
                                 </TableCell>
-                                <TableCell className="text-gray-200">{new Date(payment.createdAt).toLocaleDateString()}</TableCell>
+                                <TableCell className="text-gray-200">{formatTimestamp(payment.createdAt)}</TableCell>
                                 <TableCell>
                                     <Badge className={`${getStatusColor(payment.status)} text-gray-900`}>{payment.status}</Badge>
                                 </TableCell>
@@ -198,7 +199,7 @@ export default function PaymentsPage() {
                 className="bg-[rgba(0,0,0,0.8)] fixed flex w-full h-full top-0 left-0 z-[200] justify-center items-center text-white"
                 onClick={() => setCurrentImage(null)}
             >   
-                <span className="fixed text-white text-lg font-bold top-0 bg-black">( Click / Tap anywhere to close )</span>
+                {/* <span className="fixed text-white text-lg font-bold top-0 bg-black">( Click / Tap anywhere to close )</span> */}
                 <div className="max-w-full max-h-full flex justify-center items-center">
                     <Image
                         src={currentImage}
