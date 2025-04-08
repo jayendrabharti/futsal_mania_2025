@@ -2,10 +2,9 @@ import { User, Users } from 'lucide-react';
 import { GetIndividualPlayers, GetTeams } from '@/actions/teams';
 import { AnimatedTooltip } from '@/components/ui/animated-tooltip';
 import avatar from "@/public/images/avatar.jpg"
-import PlayerCard from '@/components/PlayerCards';
 import Image from 'next/image';
 
-export const dynamic = 'force-static';
+export const dynamic = 'force-dynamic';
 
 export default async function Teams() {
 
