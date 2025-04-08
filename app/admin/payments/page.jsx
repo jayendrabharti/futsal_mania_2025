@@ -125,7 +125,7 @@ export default function PaymentsPage() {
                                 <TableCell className="text-gray-200">₹ {payment.amount} /-</TableCell>
                                 <TableCell>
                                     <button
-                                        onClick={()=>setCurrentImage(payment.imageUrl)}
+                                        onClick={() => setCurrentImage(payment.imageUrl)}
                                         className="bg-zinc-600 py-1 px-2 rounded hover:bg-zinc-500 active:ring-2 active:ring-black"
                                     >View</button>
                                 </TableCell>
@@ -196,17 +196,19 @@ export default function PaymentsPage() {
             <dialog
                 open
                 className="bg-[rgba(0,0,0,0.8)] fixed flex w-full h-full top-0 left-0 z-[200] justify-center items-center text-white"
-                onClick={()=>setCurrentImage(null)}
+                onClick={() => setCurrentImage(null)}
             >   
                 <span className="fixed text-white text-lg font-bold top-0 bg-black">( Click / Tap anywhere to close )</span>
-                <Image
-                    src={currentImage}
-                    alt="reciept"
-                    width={500}
-                    height={500}
-                    className="max-w-full max-h-full p-4 bg-white aspect-auto"
-                />
-
+                <div className="relative max-w-full max-h-full p-4 bg-white">
+                    <Image
+                        src={currentImage}
+                        alt="receipt"
+                        layout="intrinsic"
+                        width={500}
+                        height={500}
+                        className="max-w-full max-h-full"
+                    />
+                </div>
             </dialog>}
         </div>
     )
