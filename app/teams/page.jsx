@@ -1,15 +1,31 @@
-import { User, Users } from 'lucide-react';
+"use client";
+
+import { LoaderCircle, User, Users } from 'lucide-react';
 import { GetIndividualPlayers, GetTeams } from '@/actions/teams';
 import { AnimatedTooltip } from '@/components/ui/animated-tooltip';
 import avatar from "@/public/images/avatar.jpg"
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 
-export const dynamic = 'force-dynamic';
 
-export default async function Teams() {
+export default function Teams() {
 
-    const teams = JSON.parse(await GetTeams());
-    const individualPlayers = JSON.parse(await GetIndividualPlayers());
+    const [isLoading,setIsLoading] = useState(true);
+    const [teams,setTeams] = useState([]);
+    const [individualPlayers,setIndividualPlayers] = useState([]);
+
+    useEffect(()=>{
+        const getData = async()=>{
+            const teamsData = JSON.parse(await GetTeams());
+            const individualPlayersData = JSON.parse(await GetIndividualPlayers());
+
+            setTeams(teamsData);
+            setIndividualPlayers(individualPlayersData);
+            setIsLoading(false);
+        };
+        getData();
+    },[])
+
     
     return (
         <div className="overflow-y-scroll px-4 py-8 flex flex-col">
@@ -20,7 +36,8 @@ export default async function Teams() {
             </div> 
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                {!teams.length && <span className='mx-auto text-2xl text-gray-600'>No teams Yet</span>}
+                {isLoading && <LoaderCircle className='size-12 animate-spin mx-auto'/>}
+                {!teams.length && !isLoading && <span className='mx-auto text-2xl text-gray-600'>No teams Yet</span>}
                 {teams.map((team, index) => (
                     <div key={index} className="border-4 border-zinc-700 rounded-lg p-4 flex flex-col justify-center items-center bg-zinc-800 shadow-lg">
                         <div className="flex flex-row p-2 pb-6">
@@ -44,7 +61,8 @@ export default async function Teams() {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                {!individualPlayers.length && <span className='mx-auto text-2xl text-gray-600'>No Individual Players Yet</span>}
+                {isLoading && <LoaderCircle className='size-12 animate-spin mx-auto'/>}
+                {!individualPlayers.length && !isLoading && <span className='mx-auto text-2xl text-gray-600'>No Individual Players Yet</span>}
                 {individualPlayers.map((p, index) => (
                     <div key={index} className="flex flex-col items-center bg-zinc-800 p-4 rounded-lg shadow-lg">
                         <Image
