@@ -1,17 +1,38 @@
-import { User, Users } from 'lucide-react';
+"use client";
+
+import { LoaderCircle, User, Users } from 'lucide-react';
 import { GetIndividualPlayers, GetTeams } from '@/actions/teams';
 import { AnimatedTooltip } from '@/components/ui/animated-tooltip';
 import avatar from "@/public/images/avatar.jpg"
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 
-export const dynamic = 'force-dynamic';
+export default function Teams() {
 
-export default async function Teams() {
+    const [teams,setTeams] = useState([]);
+    const [individualPlayers,setIndividualPlayers] = useState([]);
+    const [loading,setLoading] = useState(true);
 
-    const teams = JSON.parse(await GetTeams());
-    const individualPlayers = JSON.parse(await GetIndividualPlayers());
-    console.log(teams)
+    useEffect(()=>{
+        const getData = async()=>{
+            const teamsData = JSON.parse(await GetTeams());
+            const individualPlayersData = JSON.parse(await GetIndividualPlayers());
+            
+            setTeams(teamsData);
+            setIndividualPlayers(individualPlayersData);
+            setLoading(false);
+        };
+        getData();
+    },[])
     
+    if(loading){
+        return(
+            <div className='flex flex-col w-full h-full justify-center items-center'>
+            <LoaderCircle className='animate-spin size-14'/>
+            </div>
+        )
+    }
+
     return (
         <div className="overflow-y-scroll px-4 py-8">
             <div className="flex items-center space-x-4 mb-8">
