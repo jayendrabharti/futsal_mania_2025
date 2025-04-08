@@ -24,7 +24,7 @@ return (
 <html lang="en">
   <Session>
   <body
-    className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black text-white grid grid-rows-[auto_1fr] h-[100dvh] max-h-[100dvh] overflow-hidden`}
+    className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black text-white grid grid-rows-[auto_1fr] h-[100dvh] max-h-[100dvh] overflow-hidden dark`}
   >
     <Navbar/>
     {children}
