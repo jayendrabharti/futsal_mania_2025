@@ -24,6 +24,12 @@ export default function Teams() {
         };
         getData();
     },[])
+
+    return(
+        <div
+            className="text-4xl flex flex-col justify-center items-center font-bold"
+        >Soon Available</div>
+    )
     
     if(loading){
         return(
@@ -45,10 +51,10 @@ export default function Teams() {
                     <div key={index} className="border-4 border-zinc-700 rounded-lg p-4 flex flex-col justify-center items-center bg-zinc-800 shadow-lg">
                         <div className="flex flex-row p-2 pb-6">
                             <AnimatedTooltip 
-                                items={team.players.map((player, index) => ({
+                                items={(team.players || []).map((player, index) => ({
                                     id: player._id || index,
                                     name: player.name || `Player${index + 1}`,
-                                    designation: player.category.toUpperCase(),
+                                    designation: player.category?.toUpperCase() || "UNKNOWN",
                                     image: player?.user?.image || avatar
                                 }))}
                             />                        
