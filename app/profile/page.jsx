@@ -9,7 +9,7 @@ import { updatePP } from '@/actions/profile';
 
 export default function Profile(){
   
-  const { data: session } = useSession();
+  const { data: session, update} = useSession();
   const [providers, setProviders] = useState(null);
 
   const handleChange = async (e) => {
@@ -20,7 +20,7 @@ export default function Profile(){
       const data = await uploadImage(file);
       console.log(data);
       await updatePP(data.url);
-      window.location.reload();
+      update();
     } catch (err) {
       console.error(err);
       alert("Upload failed");
