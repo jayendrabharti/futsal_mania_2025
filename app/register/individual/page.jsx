@@ -17,6 +17,7 @@ export default function IndividualRegistrationForm() {
     const [submitted, setSubmitted] = useState(false);
     const [success,setSuccess] = useState(false);
     const [paymentImageURL,setPaymentImageURL] = useState(null);
+    const [agreed,setAgreed] = useState(false);
 
   const initialValues = {
     name: session?.user?.name || '',
@@ -68,7 +69,7 @@ const handleSubmit = async (values) => {
 };
 
 return (
-  <div className="flex flex-col items-center overflow-y-scroll pb-10">
+  <div className="flex flex-col items-center overflow-y-scroll pb-10 px-2">
 
     <h2 className="text-4xl font-bold mb-10 text-center sticky top-0 bg-black pt-5 p-2 w-full z-10">Individual Registration</h2>
 
@@ -176,12 +177,28 @@ return (
 
       <InputField label="Transaction ID" name="transactionId" />
 
-      <button
-        type="submit"
-        className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-blue-700 transition duration-300"
-      >
-        Submit
-      </button>
+          <div className='w-full flex'>
+              <p>
+
+                  <input type="checkbox" checked={agreed} onChange={(e)=>setAgreed(e.target.checked)} className='mr-2'/>
+                  I agree to the&nbsp;
+                  <a 
+                      href='/docs/futsal_captains_undertaking.docx'
+                      // target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="text-blue-500 underline"
+                  >Terms and Conditions</a>.
+              </p>
+          </div>
+
+
+          <button
+              disabled={!agreed || !paymentImageURL}
+              type="submit"
+              className="w-full disabled:cursor-not-allowed disabled:bg-gray-600 bg-blue-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-blue-700 transition duration-300"
+          >
+              Submit
+          </button>
     </Form>
     </Formik>
     }

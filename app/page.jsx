@@ -5,6 +5,9 @@ import Image from 'next/image';
 import heroBg from "@/public/images/heroBg.png"
 import heroImage from "@/public/images/heroImage.png"
 import { Wallpoet } from 'next/font/google';
+import iqlipseLogo from '@/public/images/iqlipse.png';
+import dsoLogo from '@/public/images/dso.png';
+import theoryLogo from '@/public/images/theory.png';
 
 const wallpoet = Wallpoet({
   subsets: ['latin'],
@@ -48,7 +51,49 @@ export default function Home() {
                   </button>
                 </div>
               </div>
-              </div>
+      </div>
+
+
+
+      {/* Organizers Section */}
+      <section className="py-16">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12 text-gray-900 dark:text-gray-100">Meet the Organizers</h2>
+          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            
+            <div className="bg-zinc-500 p-2 rounded-xl shadow-md flex flex-col items-center text-center">
+              <Image
+                src={iqlipseLogo}
+                alt="Organizer 1"
+                width={200}
+                height={200}
+                className=""
+              />
+            </div>
+            
+            <div className="bg-zinc-500 p-2 rounded-xl shadow-md flex flex-col items-center text-center">
+              <Image
+                src={dsoLogo}
+                alt="Organizer 2"
+                width={200}
+                height={200}
+                className=""
+              />
+            </div>
+            
+            <div className="bg-zinc-500 p-2 rounded-xl shadow-md flex flex-col items-center text-center">
+              <Image
+                src={theoryLogo}
+                alt="Organizer 3"
+                width={200}
+                height={200}
+                className=""
+              />
+            </div>
+
+          </div>
+        </div>
+      </section>
 
         {/* Event Details */}
       <section id='details' className="py-16">

@@ -6,6 +6,7 @@ import { signIn, signOut, useSession, getProviders } from 'next-auth/react';
 import { useState, useEffect } from "react";
 import { useRouter,usePathname } from "next/navigation";
 import Image from "next/image";
+import heroImage from "@/public/images/heroImage.png";
 
 const pages = [
     { id: 1, name: "Home", href: "/", icon: House },
@@ -70,10 +71,17 @@ return (
             }
         </button>
 
-        <h1 className="text-xl font-bold flex flex-row justify-between items-center">
+        {/* <h1 className="text-xl font-bold flex flex-row justify-between items-center">
             <Trophy className="mr-2 size-10"/>
             Futsal Mania 2025
-        </h1>
+        </h1> */}
+        <Image
+            src={heroImage}
+            alt="logo"
+            height={80}
+            width={80}
+            className="lg:ml-2"
+        />
 
         <div className="hidden lg:flex flex-row space-x-2 z-[100]">
         {pages.map((page,index) => (
@@ -106,7 +114,7 @@ return (
         ))}
         </div>
 
-        <div className="z-50">
+        <div className="z-50 lg:mr-2">
         {session?.user 
         ? 
         <div

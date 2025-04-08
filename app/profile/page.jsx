@@ -18,9 +18,9 @@ export default function Profile(){
     try {
       
       const data = await uploadImage(file);
-      alert("Upload successful! Image URL");
       console.log(data);
-      await updatePP(data.url)
+      await updatePP(data.url);
+      window.location.reload();
     } catch (err) {
       console.error(err);
       alert("Upload failed");
