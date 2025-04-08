@@ -1,44 +1,16 @@
-"use client";
-
-import { LoaderCircle, User, Users } from 'lucide-react';
+import { User, Users } from 'lucide-react';
 import { GetIndividualPlayers, GetTeams } from '@/actions/teams';
 import { AnimatedTooltip } from '@/components/ui/animated-tooltip';
 import avatar from "@/public/images/avatar.jpg"
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
 
-export default function Teams() {
+export const dynamic = 'force-dynamic';
 
-    const [teams,setTeams] = useState([]);
-    const [individualPlayers,setIndividualPlayers] = useState([]);
-    const [loading,setLoading] = useState(true);
+export default async function Teams() {
 
-    useEffect(()=>{
-        const getData = async()=>{
-            const teamsData = JSON.parse(await GetTeams());
-            const individualPlayersData = JSON.parse(await GetIndividualPlayers());
-            
-            setTeams(teamsData);
-            setIndividualPlayers(individualPlayersData);
-            setLoading(false);
-        };
-        getData();
-    },[])
-
-    // return(
-    //     <div
-    //         className="text-4xl flex flex-col justify-center items-center font-bold"
-    //     >Soon Available</div>
-    // )
+    const teams = JSON.parse(await GetTeams());
+    const individualPlayers = JSON.parse(await GetIndividualPlayers());
     
-    if(loading){
-        return(
-            <div className='flex flex-col w-full h-full justify-center items-center'>
-            <LoaderCircle className='animate-spin size-14'/>
-            </div>
-        )
-    }
-
     return (
         <div className="overflow-y-scroll px-4 py-8">
             <div className="flex items-center space-x-4 mb-8">
@@ -51,10 +23,10 @@ export default function Teams() {
                     <div key={index} className="border-4 border-zinc-700 rounded-lg p-4 flex flex-col justify-center items-center bg-zinc-800 shadow-lg">
                         <div className="flex flex-row p-2 pb-6">
                             <AnimatedTooltip 
-                                items={(team.players || []).map((player, index) => ({
+                                items={team.players.map((player, index) => ({
                                     id: player._id || index,
                                     name: player.name || `Player${index + 1}`,
-                                    designation: player.category?.toUpperCase() || "UNKNOWN",
+                                    designation: player.category.toUpperCase(),
                                     image: player?.user?.image || avatar
                                 }))}
                             />                        
