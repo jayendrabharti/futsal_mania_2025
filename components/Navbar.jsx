@@ -14,7 +14,7 @@ const pages = [
     { id: 3, name: "Schedule", href: "/schedule", icon: CalendarDays },
     { id: 4, name: "Rules", href: "/rules", icon: ScrollIcon },
     { id: 5, name: "Matches", href: "/matches", icon: Gamepad2 },
-    { id: 6, name: "Register", href: "/register", icon: UserPlus },
+    // { id: 6, name: "Register", href: "/register", icon: UserPlus },
 ];
 
 export default function Navbar(){
@@ -96,6 +96,15 @@ return (
             <span>{page.name}</span>
         </Link>
         ))}
+        <Link
+            href={'/register'} 
+            className={`active:scale-90 text p-2 my-2 bg-[#66f] hover:bg-zinc-700 rounded-xl transition-all duration-100 flex flex-row text-gray-100 hover:text-[#66f]`}
+        >
+            <UserPlus
+                className="mr-2"
+            />
+            <span>Register</span>
+        </Link>
         </div>
 
 
@@ -112,6 +121,15 @@ return (
             <span>{page.name}</span>
         </Link>
         ))}
+        <Link
+            href={'/register'} 
+            className={`active:scale-90 text p-2 my-2 bg-[#66f] hover:bg-zinc-700 rounded-xl transition-all duration-100 flex flex-row text-gray-100 hover:text-[#66f]`}
+        >
+            <UserPlus
+                className="mr-2"
+            />
+            <span>Register</span>
+        </Link>
         </div>
 
         <div className="z-50 lg:mr-2">
