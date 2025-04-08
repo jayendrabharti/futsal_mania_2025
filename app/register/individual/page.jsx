@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import { useEffect, useState } from 'react';
 import { RegisterIndividual } from '@/actions/registeration';
 import Link from 'next/link';
-import { ThumbsUp } from 'lucide-react';
+import { LoaderCircle, ThumbsUp } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 import paymentQR from '@/public/images/paymentQR.jpg';
 import Image from 'next/image';
@@ -18,6 +18,7 @@ export default function IndividualRegistrationForm() {
     const [success,setSuccess] = useState(false);
     const [paymentImageURL,setPaymentImageURL] = useState(null);
     const [agreed,setAgreed] = useState(false);
+    const [gettingURL,setGettingURL] = useState(false);
 
   const initialValues = {
     name: session?.user?.name || '',
@@ -67,6 +68,21 @@ const handleSubmit = async (values) => {
         alert('An error occurred. Please try again later.');
     }
 };
+const handleChange = async (e) => {
+        const file = e.target.files[0];
+        if (file) {
+        try {
+            setGettingURL(true);
+            const data = await uploadImage(file);
+            console.log(data);
+            setPaymentImageURL(data.url);
+            setGettingURL(false);
+        } catch (err) {
+            console.error(err);
+            alert("Upload failed");
+        }
+        }
+    }
 
 return (
   <div className="flex flex-col items-center overflow-y-scroll pb-10 px-2">
@@ -146,24 +162,18 @@ return (
         <input 
         type="file" 
         accept="image/*" 
-        onChange={async (e) => {
-          const file = e.target.files[0];
-          if (file) {
-          try {
-            
-            const data = await uploadImage(file);
-            alert("Upload successful! Image URL");
-            console.log(data);
-            setPaymentImageURL(data.url);
-          } catch (err) {
-            console.error(err);
-            alert("Upload failed");
-          }
-          }
-        }} 
+        onChange={handleChange} 
         className="block w-full text-sm text-gray-300 border border-gray-700 rounded-lg cursor-pointer bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700"
         />
       </div>
+
+      {gettingURL
+        && 
+          <div className='flex flex-col justify-center items-center'>
+              <span>Uploading Image...</span>
+              <LoaderCircle className='mt-2 mx-auto animate-spin'/>
+          </div>
+      }
 
       {paymentImageURL && 
         <img
