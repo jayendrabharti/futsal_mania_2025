@@ -11,7 +11,7 @@ export default async function Teams() {
     const individualPlayers = JSON.parse(await GetIndividualPlayers());
     console.log(teams)
     return (
-        <div className="max-w-full overflow-y-scroll px-4 py-8">
+        <div className="overflow-y-scroll px-4 py-8">
             <div className="flex items-center space-x-4 mb-8">
                 <Users className="h-8 w-8 text-blue-600 dark:text-blue-400" />
                 <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Participating Teams</h1>

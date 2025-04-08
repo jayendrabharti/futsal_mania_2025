@@ -4,7 +4,7 @@ import { schedule } from '@/data/schedule';
 
 export default function Schedule() {
     return (
-        <div className="max-w-full mx-auto px-4 py-8 overflow-y-scroll">
+        <div className="mx-auto px-4 py-8 overflow-y-scroll">
             <div className="flex items-center space-x-4 mb-8">
                 <Calendar className="h-8 w-8 text-blue-600 dark:text-blue-400" />
                 <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
