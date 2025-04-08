@@ -5,11 +5,14 @@ import avatar from "@/public/images/avatar.jpg"
 import PlayerCard from '@/components/PlayerCards';
 import Image from 'next/image';
 
+export const dynamic = 'force-static';
+
 export default async function Teams() {
 
     const teams = JSON.parse(await GetTeams());
     const individualPlayers = JSON.parse(await GetIndividualPlayers());
     console.log(teams)
+    
     return (
         <div className="overflow-y-scroll px-4 py-8">
             <div className="flex items-center space-x-4 mb-8">
