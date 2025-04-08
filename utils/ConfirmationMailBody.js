@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+export default function ConfirmationMailBody({teamText,name,regNo,email,phone}) {
+
+return(`<!DOCTYPE html>
 <html>
 <head>
   <meta charset="UTF-8" />
@@ -10,7 +12,7 @@
       background-color: #f4f4f4;
       margin: 0;
       padding: 20px;
-      color: #000;
+      color: #333;
     }
     .container {
       background-color: #ffffff;
@@ -57,7 +59,7 @@
   <div class="container">
     <div class="header">
 
-      <div style="display: flex; align-items: center; justify-content: center; gap: 20px;margin: 0 auto 0 auto;">
+      <div style="display: flex; align-items: center; justify-content: center; gap: 20px;width: 100%;">
         <a href="https://futsal-mania-2025.vercel.app/" target="_blank">
           <img src="https://i.postimg.cc/T1DkyTsx/hero-Image.png" alt="futsal-mania-2025" style="max-width: 200px; height: auto;">
         </a>
@@ -70,22 +72,22 @@
       <h2>Registration Confirmed 🎉</h2>
     </div>
     <div class="content">
-      <p>Hi <strong>{{name}}</strong>,</p>
+      <p>Hi <strong>${name}</strong>,</p>
 
       <p>We're excited to confirm your registration for the <strong>Futsal Tournament</strong> organized by <strong>Iqlipse Club</strong> at Lovely Professional University! 🏆</p>
       <p>The tournament will take place from <strong>13th April 2025</strong> to <strong>20th April 2025</strong>.</p>
-      <h2 style="text-align: center;">{{Team Name}}</h2>
+      <h2 style="text-align: center;">${teamText}</h2>
       
       <p>Here are your registration details:</p>
       <ul>
-        <li><strong>Name:</strong> {{name}}</li>
-        <li><strong>Registration Number:</strong> {{regNo}}</li>
-        <li><strong>Email:</strong> {{email}}</li>
-        <li><strong>Phone:</strong> {{phone}}</li>
+        <li><strong>Name:&nbsp;</strong>${name}</li>
+        <li><strong>Registration Number:&nbsp;</strong>${regNo}</li>
+        <li><strong>Email:&nbsp;</strong>${email}</li>
+        <li><strong>Phone:&nbsp;</strong>${phone}</li>
       </ul>
 
       <div style="text-align: center;">
-        <a href="https://futsal-mania-2025.vercel.app/" target="_blank" class="btn">
+        <a href="https://futsal-mania-2025.vercel.app/" target="_blank" class="btn" style="color: white;">
           Visit 
           <b>Futsal Mania 2025</b>
           Site for more information
@@ -99,8 +101,8 @@
       
       <div style="text-align: center;">
 
-        <a href="https://futsal-mania-2025.vercel.app/dashboard" target="_blank" class="btn">View Dashboard</a>
-        <a href="https://iqlipse.space/contact" target="_blank" class="btn btn-secondary">Contact Us for Queries</a>
+        <a href="https://futsal-mania-2025.vercel.app/dashboard" target="_blank" class="btn" style="color: white;">View Dashboard</a>
+        <a href="https://iqlipse.space/contact" target="_blank" class="btn btn-secondary" style="color: white;">Contact Us for Queries</a>
         
       </div>
 
@@ -113,3 +115,5 @@
   </div>
 </body>
 </html>
+`)
+}

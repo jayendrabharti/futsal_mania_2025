@@ -7,6 +7,7 @@ import { authOptions } from "@/utils/authOptions";
 import User from "@/models/user";
 import Teams from "@/models/teams";
 import Payments from "@/models/payments";
+import SendConfirmation from "./sendConfirmation";
 
 
 export async function RegisterIndividual(data) {
@@ -42,6 +43,14 @@ export async function RegisterIndividual(data) {
             },
             payment: paymentData._id
         })
+
+        await SendConfirmation({
+            teamText: "Individual Registrations",
+            name: data.name,
+            regNo: data.regNo,
+            email: data.email,
+            phone: data.phone,
+        });
 
         if(playerData){
 
@@ -119,8 +128,19 @@ export async function RegisterTeam(data){
                     course: p.course,
                 }
             });
+
             playerIds.push(playerData._id);
             console.log(playerData._id);
+        }
+
+        for (const p of teamList){
+            await SendConfirmation({
+                teamText: `Team Name: ${data.teamName}`,
+                name: p.name,
+                regNo: p.regNo,
+                email: p.email,
+                phone: p.phone,
+            });
         }
 
         await Teams.findByIdAndUpdate(teamData._id,{players: [...playerIds]});
