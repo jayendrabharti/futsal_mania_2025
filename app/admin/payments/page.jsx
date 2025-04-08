@@ -199,14 +199,13 @@ export default function PaymentsPage() {
                 onClick={() => setCurrentImage(null)}
             >   
                 <span className="fixed text-white text-lg font-bold top-0 bg-black">( Click / Tap anywhere to close )</span>
-                <div className="relative max-w-full max-h-full p-4 bg-white">
+                <div className="max-w-full max-h-full flex justify-center items-center">
                     <Image
                         src={currentImage}
                         alt="receipt"
-                        layout="intrinsic"
                         width={500}
                         height={500}
-                        className="max-w-full max-h-full"
+                        className="max-w-full max-h-full object-contain bg-white"
                     />
                 </div>
             </dialog>}
