@@ -3,7 +3,11 @@
 import { connectToDB } from "@/utils/database";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/utils/authOptions";
+
+import Payments from "@/models/payments";
 import User from "@/models/user";
+import Players from "@/models/players";
+import Teams from "@/models/teams";
 
 export async function updatePP(newURL){
     try {

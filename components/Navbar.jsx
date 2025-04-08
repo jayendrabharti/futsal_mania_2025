@@ -1,6 +1,6 @@
 "use client";
 
-import { CalendarDays, CircleUserRound, Cpu, Gamepad2, House,  Info,  LogOut, Menu, Play, ScrollIcon, Table, Trophy, UserPlus, Users, X } from "lucide-react";
+import { CalendarDays, CircleUserRound, Cpu, Gamepad2, House,  Info,  Lock,  LogOut, Menu, Play, ScrollIcon, Table, Trophy, UserPlus, Users, X } from "lucide-react";
 import Link from "next/link";
 import { signIn, signOut, useSession, getProviders } from 'next-auth/react';
 import { useState, useEffect } from "react";
@@ -71,10 +71,6 @@ return (
             }
         </button>
 
-        {/* <h1 className="text-xl font-bold flex flex-row justify-between items-center">
-            <Trophy className="mr-2 size-10"/>
-            Futsal Mania 2025
-        </h1> */}
         <Image
             src={heroImage}
             alt="logo"
@@ -147,20 +143,29 @@ return (
                 className="size-12 rounded-full"
             />
 
-            <div className={`absolute p-2 border border-gray-600 bg-zinc-900 top-full mt-2 right-0 rounded-xl w-max overflow-hidden transition-all  duration-100 ${menu.open ? "scale-y-100 translate-y-0" : "scale-y-0 -translate-y-1/2"}`}>
+            <div className={`space-y-2 absolute p-2 border border-gray-600 bg-zinc-900 top-full mt-2 right-0 rounded-xl w-max overflow-hidden transition-all  duration-100 ${menu.open ? "scale-y-100 translate-y-0" : "scale-y-0 -translate-y-1/2"}`}>
                 
                 <div className="flex flex-col items-center p-2">
                     <span>{session.user.name}</span>
                     <span className="text-sm text-zinc-500">{session.user.email}</span>
                 </div>
                 
-                <button
+                <Link
+                    href={`/profile`}
                     className="text text-gray-300 hover:text-[#66f] p-2 hover:bg-zinc-800 rounded-xl transition-colors duration-300 flex flex-row w-full cursor-pointer"
-                    onClick={()=>router.push("/profile")}
                 >
                     <CircleUserRound className="mr-2"/>
                     Your Profile
-                </button>
+                </Link>
+                
+                {session.user.isAdmin &&
+                <Link
+                    href={`/admin`}
+                    className="text text-gray-300 hover:text-[#66f] p-2 hover:bg-zinc-800 rounded-xl transition-colors duration-300 flex flex-row w-full cursor-pointer"
+                >
+                    <Lock className="mr-2"/>
+                    Admin Dashboard
+                </Link>}
 
                 <button
                     className="text text-gray-300 hover:text-[#66f] p-2 hover:bg-zinc-800 rounded-xl transition-colors duration-300 flex flex-row w-full cursor-pointer"

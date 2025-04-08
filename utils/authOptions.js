@@ -23,6 +23,7 @@ export const authOptions = {
             session.user.id = sessionUser._id.toString();
             session.user.phone = sessionUser.phone;
             session.user.image = sessionUser.image;
+            session.user.isAdmin = process.env.ADMIN_EMAILS?.split(',').includes(sessionUser.email)
             return session;
         },
         async signIn({ profile }) {

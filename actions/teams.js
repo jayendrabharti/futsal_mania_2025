@@ -3,6 +3,7 @@
 import Players from "@/models/players";
 import Teams from "@/models/teams";
 import User from "@/models/user";
+import Payments from "@/models/payments";
 
 import { connectToDB } from "@/utils/database";
 
