@@ -205,7 +205,7 @@ export default function PaymentsPage() {
                         alt="receipt"
                         width={500}
                         height={500}
-                        className="max-w-full max-h-full object-contain bg-white"
+                        className="max-w-dvw max-h-dvh object-contain bg-white"
                     />
                 </div>
             </dialog>}
