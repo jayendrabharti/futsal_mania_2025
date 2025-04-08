@@ -204,7 +204,7 @@ export default function PaymentsPage() {
                     alt="reciept"
                     width={500}
                     height={500}
-                    className="max-w-full max-h-full p-4 bg-white"
+                    className="max-w-full max-h-full p-4 bg-white aspect-auto"
                 />
 
             </dialog>}
