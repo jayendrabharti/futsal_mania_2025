@@ -25,11 +25,11 @@ export default function Teams() {
         getData();
     },[])
 
-    return(
-        <div
-            className="text-4xl flex flex-col justify-center items-center font-bold"
-        >Soon Available</div>
-    )
+    // return(
+    //     <div
+    //         className="text-4xl flex flex-col justify-center items-center font-bold"
+    //     >Soon Available</div>
+    // )
     
     if(loading){
         return(
