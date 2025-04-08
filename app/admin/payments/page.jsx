@@ -1,7 +1,7 @@
 "use client"
 
 import { GetPayments, UpdatePaymentStatus } from "@/actions/payments"
-import { Check, ChevronDown, LoaderCircle } from "lucide-react"
+import { Check, ChevronDown, LoaderCircle, X } from "lucide-react"
 import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
@@ -195,16 +195,16 @@ export default function PaymentsPage() {
             {currentImage &&
             <dialog
                 open
-                className="bg-[rgba(0,0,0,0.5)] w-full h-full flex flex-col text-white"
+                className="bg-[rgba(0,0,0,0.8)] fixed flex w-full h-full top-0 left-0 z-[200] justify-center items-center text-white"
                 onClick={()=>setCurrentImage(null)}
-            >
-                <span className="text-2xl font-bold mb-2 mx-auto">Click anywhere to close</span>
+            >   
+                <span className="fixed text-white text-lg font-bold top-0 bg-black">( Click / Tap anywhere to close )</span>
                 <Image
                     src={currentImage}
                     alt="reciept"
                     width={500}
                     height={500}
-                    className="max-w-full max-h-4/5 p-4 mx-auto  bg-white"
+                    className="max-w-full max-h-full p-4 bg-white"
                 />
 
             </dialog>}
