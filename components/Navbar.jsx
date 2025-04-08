@@ -53,7 +53,7 @@ export default function Navbar(){
     },[])
 
 return (
-    <div className="relative flex flex-row lg:flow-row justify-between items-center w-full p-4 mx-auto bg-[#222] shadow-md  border-b border-gray-600 z-50"
+    <div className="sticky top-0 flex flex-row lg:flow-row justify-between items-center w-full p-4 mx-auto bg-[#222] shadow-md  border-b border-gray-600 z-50"
         onClick={()=>setExpanded(false)}
     >
         <button 
