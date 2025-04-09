@@ -1,7 +1,7 @@
 "use client";
 
 import { LoaderCircle, User, Users } from 'lucide-react';
-import { GetIndividualPlayers, GetTeams } from '@/actions/teams';
+import { GetTeamsAndPlayers } from '@/actions/teams';
 import { AnimatedTooltip } from '@/components/ui/animated-tooltip';
 import avatar from "@/public/images/avatar.jpg"
 import Image from 'next/image';
@@ -16,11 +16,10 @@ export default function Teams() {
 
     useEffect(()=>{
         const getData = async()=>{
-            const teamsData = JSON.parse(await GetTeams());
-            const individualPlayersData = JSON.parse(await GetIndividualPlayers());
-
-            setTeams(teamsData);
-            setIndividualPlayers(individualPlayersData);
+            const data = JSON.parse(await GetTeamsAndPlayers());
+            console.log(data);
+            setTeams(data.teamsData);
+            setIndividualPlayers(data.playersData);
             setIsLoading(false);
         };
         getData();

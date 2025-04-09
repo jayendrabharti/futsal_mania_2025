@@ -32,6 +32,26 @@ export async function GetTeamPlayers(id) {
     return JSON.stringify(players);
 }
 
+export async function GetTeamsAndPlayers() {
+
+    await connectToDB();
+    
+    const teamsData = await Teams.find()
+    .populate("captain")
+    .populate({
+        path: "players",
+        populate: {
+            path: "user"
+        }
+    });
+    
+    const playersData = await Players.find({isIndividual: true})
+        .populate("user");
+
+    return JSON.stringify({teamsData,playersData});
+
+}
+
 export async function GetIndividualPlayers() {
     await connectToDB();
 
