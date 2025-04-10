@@ -57,6 +57,34 @@ export default function TeamRegistrationForm() {
     });
  
     const handleSubmit = async (values) => {
+
+
+        const captain = { ...values.captain, category: "captain" };
+        const players = values.players.map(p => ({ ...p, category: "player" }));
+        const substitutes = values.substitutes.map(p => ({ ...p, category: "player" }));
+
+        const teamList = [
+            captain,
+            ...players,
+            ...substitutes,
+        ];
+
+        let sameEmail=false;
+        const emailSet = new Set();
+        for (const member of teamList) {
+            if (emailSet.has(member.email)) {
+            sameEmail = true;
+            alert(`The email ${member.email} is repeated. Please ensure all emails are unique.`);
+            return;
+            }
+            emailSet.add(member.email);
+        }
+
+        if(sameEmail){
+            alert("No two can have same email id");
+            return;
+        }
+
         if(!paymentImageURL){
             alert("You must Upload payment Screenshot");
             return;
@@ -121,6 +149,15 @@ export default function TeamRegistrationForm() {
                                 </p>
                             </div>
                             
+                            <div className="bg-gray-800 p-4 rounded-lg shadow-md">
+                                <span className="font-semibold">Guidelines:</span>
+                                <ul className="list-disc list-inside text-gray-300 mt-2">
+                                    <li>Do not attempt to register twice.</li>
+                                    <li>Ensure no two players are registered with the same email ID.</li>
+                                    <li>Check if all inputs are valid before submitting.</li>
+                                    <li>If any input is invalid, the form won't submit.</li>
+                                </ul>
+                            </div>
 
                             <InputField label="Team Name" name="teamName" />
 
@@ -175,7 +212,8 @@ export default function TeamRegistrationForm() {
                                     height={500}
                                     className='w-[200px] mx-auto rounded-2xl'
                                 />
-                                <span className='font-bold text-2xl p-2'>Pay ₹ 599 /- </span>
+                                <span className='font-bold text-2xl p-2'>Pay ₹ 399 /- </span>
+                                <span className='line-through text-xl p-2'>₹ 599 /- </span>
                                 <span>Make payment, Upload Payment Screenshot and fill in transaction ID </span>
                             </div>
                             

@@ -30,11 +30,11 @@ export default function RegisterLayout({children}){
             if(session?.user)check();
         },[session?.user])
 
-    return(
-        <div className="flex flex-col w-full h-full justify-center items-center">
-            <span className="text-2xl font-bold">Continuing Registrations soon</span>  
-        </div>
-    )
+    // return(
+    //     <div className="flex flex-col w-full h-full justify-center items-center">
+    //         <span className="text-2xl font-bold">Continuing Registrations soon</span>  
+    //     </div>
+    // )
         
     if(!session?.user)return(
         <div className="flex flex-col w-full h-full justify-center items-center">

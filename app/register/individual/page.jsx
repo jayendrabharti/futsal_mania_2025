@@ -116,6 +116,16 @@ return (
         </p>
       </div>
 
+      <div className="bg-gray-800 p-4 rounded-lg shadow-md">
+        <span className="font-semibold">Guidelines:</span>
+        <ul className="list-disc list-inside text-gray-300 mt-2">
+            <li>Do not attempt to register twice.</li>
+            <li>Ensure no two players are registered with the same email ID.</li>
+            <li>Check if all inputs are valid before submitting.</li>
+            <li>If any input is invalid, the form won't submit.</li>
+        </ul>
+    </div>
+
       <InputField label="Name" name="name" />
       <InputField label="Email" name="email" type="email" disabled={true} />
       <InputField label="Phone" name="phone" />
@@ -153,7 +163,8 @@ return (
         height={500}
         className='w-[200px] mx-auto rounded-2xl'
         />
-        <span className='font-bold text-2xl p-2'>Pay ₹ 99 /- </span>
+        <span className='font-bold text-2xl p-2'>Pay ₹ 79 /- </span>
+        <span className='line-through text-xl p-2'>₹ 99 /- </span>
         <span>Make payment, Upload Payment Screenshot and fill in transaction ID </span>
       </div>
       
