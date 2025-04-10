@@ -31,10 +31,14 @@ export default async function AdminLayout({children}) {
         <div className="w-full h-full grid grid-cols-[auto_1fr]">
             
             <div className="bg-zinc-800 p-4">
-                <Link 
+            <Link 
                     href={'/admin/payments'}
                     className={`active:scale-90 text py-2 px-4 my-2 hover:bg-zinc-700 rounded-xl transition-all duration-100 flex flex-row text-gray-400 hover:text-[#66f] bg-zinc-900`}
                 >Payments</Link>
+            <Link 
+                    href={'/admin/teams'}
+                    className={`active:scale-90 text py-2 px-4 my-2 hover:bg-zinc-700 rounded-xl transition-all duration-100 flex flex-row text-gray-400 hover:text-[#66f] bg-zinc-900`}
+                >Teams and Players</Link>
             </div>
             
             <div>

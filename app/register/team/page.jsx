@@ -2,7 +2,7 @@
 
 import { Formik, Form, Field, FieldArray, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { RegisterTeam } from '@/actions/registeration';
+import { GetAllPlayerEmailIds, RegisterTeam } from '@/actions/registeration';
 import { useState } from 'react';
 import { LoaderCircle, ThumbsUp } from 'lucide-react';
 import Link from 'next/link';
@@ -78,6 +78,14 @@ export default function TeamRegistrationForm() {
             return;
             }
             emailSet.add(member.email);
+        }
+
+        const alreadyRegisteredEmails = JSON.parse(await GetAllPlayerEmailIds());
+        for (const member of teamList) {
+            if (alreadyRegisteredEmails.includes(member.email)) {
+            alert(`The email ${member.email} is already registered..`);
+            return;
+            }
         }
 
         if(sameEmail){

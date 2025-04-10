@@ -173,3 +173,21 @@ export async function CheckRegistered() {
         throw new Error(`Could not check: ${error.message}`);
     }
 }
+
+export async function GetAllPlayerEmailIds() {
+    try {
+        const session = await getServerSession(authOptions);
+        if (!session) {
+            throw new Error(`Not logged In`);
+        }
+
+        await connectToDB();
+
+        const players = await Players.find({}, { email: 1, _id: 0 });
+        const emailIds = players.map(player => player.email);
+
+        return JSON.stringify(emailIds);
+    } catch (error) {
+        throw new Error(`Could not fetch player email IDs: ${error.message}`);
+    }
+}

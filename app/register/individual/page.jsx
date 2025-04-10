@@ -10,6 +10,7 @@ import { useSession } from 'next-auth/react';
 import paymentQR from '@/public/images/paymentQR.jpg';
 import Image from 'next/image';
 import uploadImage from '@/utils/uploadImage';
+import { GetAllPlayerEmailIds } from '@/actions/registeration';
 
 export default function IndividualRegistrationForm() {
 
@@ -47,6 +48,14 @@ export default function IndividualRegistrationForm() {
   });
 
 const handleSubmit = async (values) => {
+
+
+    const alreadyRegisteredEmails = JSON.parse(await GetAllPlayerEmailIds());
+      if (alreadyRegisteredEmails.includes(values.email)) {
+        alert(`The email ${member.email} is already registered..`);
+        return;
+      }
+
     if(!paymentImageURL){
       alert("You must Upload payment Screenshot");
       return;
