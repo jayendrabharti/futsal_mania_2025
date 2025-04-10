@@ -10,7 +10,7 @@ import heroImage from "@/public/images/heroImage.png";
 
 const pages = [
     { id: 1, name: "Home", href: "/", icon: House },
-    { id: 2, name: "Teams", href: "/teams", icon: Users },
+    // { id: 2, name: "Teams", href: "/teams", icon: Users },
     { id: 3, name: "Schedule", href: "/schedule", icon: CalendarDays },
     { id: 4, name: "Rules", href: "/rules", icon: ScrollIcon },
     { id: 5, name: "Matches", href: "/matches", icon: Gamepad2 },

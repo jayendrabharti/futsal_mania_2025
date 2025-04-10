@@ -93,7 +93,7 @@ export async function RegisterTeam(data){
         });
 
         for (const p of teamList) {
-            const pdata = await User.findOne({ email: p.email });
+            let pdata = await User.findOne({ email: p.email });
             if (pdata?.isRegistered) {
                 throw new Error(`${p.email} is already registered`);
             }
@@ -109,7 +109,8 @@ export async function RegisterTeam(data){
         let playerIds = [];
 
         for (const p of teamList) {
-            const userData = await User.findOne({ email: p.email });
+
+            let userData = await User.findOne({ email: p.email });
             if (userData) {
                 await User.findByIdAndUpdate(userData._id, { isRegistered: true });
             }
@@ -118,7 +119,7 @@ export async function RegisterTeam(data){
                 category: p.category,
                 isIndividual: false,
                 team: teamData._id,
-                user: userData?._id || null,
+                user: userData ? userData._id : null,
                 name: p.name,
                 email: p.email,
                 phone: p.phone,
@@ -130,9 +131,10 @@ export async function RegisterTeam(data){
             });
 
             playerIds.push(playerData._id);
-            console.log(playerData._id);
         }
-
+        console.log(playerIds);
+        
+        // send confirmation mail
         for (const p of teamList){
             await SendConfirmation({
                 teamText: `Team Name: ${data.teamName}`,
