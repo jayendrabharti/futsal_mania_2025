@@ -70,6 +70,8 @@ const handleSubmit = async (values) => {
         } else {
             setSubmitted(false);
             alert('Registration failed. Please try again.');
+            window.location.reload();
+        
         }
     } catch (error) {
         setSubmitted(false);

@@ -20,14 +20,6 @@ export default function TeamRegistrationForm() {
     const [agreed,setAgreed] = useState(false);
     const [gettingURL,setGettingURL] = useState(false);
 
-    useEffect(()=>{
-        const call = async()=>{
-            const data = JSON.parse(await GetAllPlayerEmailIds());
-            console.log(data);
-        } 
-        call();
-    },[])
-
     const initialPlayer = { name: '', regNo: '', year: '', course: '', email: '', phone: '' };
 
     const initialValues = {
@@ -109,7 +101,8 @@ export default function TeamRegistrationForm() {
                 setSuccess(true);
             } else {
                 setSubmitted(false);
-                alert('Registration failed. Refresh this page to confirm registration status.');
+                alert('Registration failed. We are refreshing this page to confirm registration status.');
+                window.location.reload();
             }
         } catch (error) {
             setSubmitted(false);

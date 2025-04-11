@@ -43,7 +43,8 @@ export async function GetTeamsAndPlayers() {
         populate: {
             path: "user"
         }
-    });
+    })
+    .populate("payment");
     
     const playersData = await Players.find({isIndividual: true})
         .populate("user");

@@ -25,6 +25,20 @@ export default function Teams() {
         getData();
     },[])
 
+    const getStatusColor = (status) => {
+        switch (status) {
+            case "verified":
+                return "bg-green-500"
+            case "verification-pending":
+                return "bg-yellow-500"
+            case "flagged":
+                return "bg-red-500"
+            case "refunded":
+                return "bg-blue-500"
+            default:
+                return "bg-gray-500"
+        }
+    }
     
     return (
         <div className="overflow-y-scroll px-4 py-8 flex flex-col">
@@ -38,18 +52,35 @@ export default function Teams() {
                 {isLoading && <LoaderCircle className='size-12 animate-spin mx-auto'/>}
                 {!teams.length && !isLoading && <span className='mx-auto text-2xl text-gray-600'>No teams Yet</span>}
                 {teams.map((team, index) => (
-                    <div key={index} className="border-4 border-zinc-700 rounded-lg p-4 flex flex-col justify-center items-center bg-zinc-800 shadow-lg">
-                        <div className="flex flex-row p-2 pb-6">
-                            <AnimatedTooltip 
-                                items={team.players.map((player, index) => ({
-                                    id: player._id || index,
-                                    name: player.name || `Player${index + 1}`,
-                                    designation: player.category.toUpperCase(),
-                                    image: player?.user?.image || avatar
-                                }))}
-                            />                        
-                        </div>
-                        <span className="text-xl p-2 font-bold text-white">{team.teamName}</span>
+                    <div key={index} className="border-4 border-zinc-700 rounded-lg p-4 flex flex-col bg-zinc-800 shadow-lg hover:bg-zinc-700 space-y-2 cursor-pointer">
+                            
+                            {/* captain */}
+                            <div className='flex flex-row justify-start items-center'>
+                                <Image
+                                    src={team?.players[0]?.user?.image || avatar}
+                                    alt={team?.players[0]?.name || 'captain'}
+                                    width={100}
+                                    height={100}
+                                    className='rounded-full size-14 mr-2'
+                                />
+                                <div className='flex flex-col'>
+                                   <span className='text-base text-white'>{team?.players[0]?.name}</span>
+                                   <span className='text-xs text-zinc-400'>{team?.players[0]?.category.toUpperCase()}</span>
+                                </div>
+                            </div>
+
+                            <div className='flex flex-row justify-between'>
+                                <span className='text-zinc-400'>Team Members:</span>
+                                <span>{team.players.length}</span>
+                            </div>
+                            <div className='flex flex-row justify-between'>
+                                <span className='text-zinc-400'>Payment Status:</span>
+                                <span 
+                                    className={`${getStatusColor(team?.payment?.status)} px-1 rounded-full`}
+                                >{team?.payment?.status}</span>
+                            </div>
+
+                            <span className="text-xl p-2 font-bold text-white mx-auto cursor-pointer">{team.teamName}</span>
                     </div>
                 ))}
             </div>
