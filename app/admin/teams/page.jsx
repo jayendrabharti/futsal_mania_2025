@@ -1,6 +1,6 @@
 "use client";
 
-import { LoaderCircle, User, Users } from 'lucide-react';
+import { AtSign, LoaderCircle, Phone, User, Users } from 'lucide-react';
 import { GetTeamsAndPlayers } from '@/actions/teams';
 import { AnimatedTooltip } from '@/components/ui/animated-tooltip';
 import avatar from "@/public/images/avatar.jpg"
@@ -78,6 +78,16 @@ export default function Teams() {
                             </div>
 
                             <div className='flex flex-row justify-between'>
+                                <span className='text-zinc-400'><AtSign/></span>
+                                <span>{team.players[0].email}</span>
+                            </div>
+
+                            <div className='flex flex-row justify-between'>
+                                <span className='text-zinc-400'><Phone/></span>
+                                <span>{team.players[0].phone || "N/A"}</span>
+                            </div>
+
+                            <div className='flex flex-row justify-between'>
                                 <span className='text-zinc-400'>Team Members:</span>
                                 <span>{team.players.length}</span>
                             </div>
@@ -119,6 +129,22 @@ export default function Teams() {
                         </div>
 
                         
+                        <div className='flex flex-row justify-between'>
+                                <span className='text-zinc-400'><AtSign/></span>
+                                <span 
+                                    className={` px-1 rounded-full`}
+                                >{p?.email}</span>
+                        </div>
+
+                                                
+                        <div className='flex flex-row justify-between'>
+                                <span className='text-zinc-400'><Phone/></span>
+                                <span 
+                                    className={` px-1 rounded-full`}
+                                >{p?.phone}</span>
+                        </div>
+
+                                                
                         <div className='flex flex-row justify-between'>
                                 <span className='text-zinc-400'>Payment Status:</span>
                                 <span 

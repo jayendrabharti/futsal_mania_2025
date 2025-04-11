@@ -35,8 +35,9 @@ export async function GetTeamById(id) {
         populate: {
             path: "user"
         }
-    });
-    
+    })
+    .populate('payment');
+
     return JSON.stringify(teamData);
 }
 
