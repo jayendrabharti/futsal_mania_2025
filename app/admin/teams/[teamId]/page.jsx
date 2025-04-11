@@ -60,7 +60,7 @@ export default function TeamPage() {
 
     return (
         <div className="flex flex-col">
-            <h1 className='text-3xl font-bold mx-auto w-full text-center bg-zinc-800 p-4 top-0'>{data.teamName}</h1>
+            <h1 className='text-3xl font-bold mx-auto w-full text-center bg-zinc-800 p-4 sticky top-0'>{data.teamName}</h1>
 
             <div className="flex items-center space-x-4 p-4">
                 <Users className="h-8 w-8 text-blue-600 dark:text-blue-400" />

@@ -28,8 +28,7 @@ export default async function AdminLayout({children}) {
     }
 
     return(  
-        <div className="w-full h-full grid grid-cols-[auto_1fr] overflow-y-scroll">
-            
+        <div className="w-full h-full max-h-full grid grid-cols-[auto_1fr] overflow-y-scroll">
             <div className="bg-zinc-800 p-4">
             <Link 
                     href={'/admin/payments'}
@@ -41,7 +40,7 @@ export default async function AdminLayout({children}) {
                 >Teams and Players</Link>
             </div>
             
-            <div>
+            <div className="max-h-full overflow-y-scroll">
                 {children}
             </div>
 
