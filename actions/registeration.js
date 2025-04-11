@@ -44,13 +44,13 @@ export async function RegisterIndividual(data) {
             payment: paymentData._id
         })
 
-        await SendConfirmation({
-            teamText: "Individual Registrations",
-            name: data.name,
-            regNo: data.regNo,
-            email: data.email,
-            phone: data.phone,
-        });
+        // await SendConfirmation({
+        //     teamText: "Individual Registrations",
+        //     name: data.name,
+        //     regNo: data.regNo,
+        //     email: data.email,
+        //     phone: data.phone,
+        // });
 
         if(playerData){
 

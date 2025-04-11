@@ -109,7 +109,7 @@ export default function TeamRegistrationForm() {
                 setSuccess(true);
             } else {
                 setSubmitted(false);
-                alert('Registration failed. Please try again.');
+                alert('Registration failed. Refresh this page to confirm registration status.');
             }
         } catch (error) {
             setSubmitted(false);
@@ -163,6 +163,7 @@ export default function TeamRegistrationForm() {
                             <div className="bg-gray-800 p-4 rounded-lg shadow-md">
                                 <span className="font-semibold">Guidelines:</span>
                                 <ul className="list-disc list-inside text-gray-300 mt-2">
+                                    <li>Contact <b>+91 8800534849</b> in case of any issues.</li>
                                     <li>Do not attempt to register twice.</li>
                                     <li>Ensure no two players are registered with the same email ID.</li>
                                     <li>Check if all inputs are valid before submitting.</li>
