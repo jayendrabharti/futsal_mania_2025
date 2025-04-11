@@ -24,12 +24,31 @@ export async function GetTeams() {
     return JSON.stringify(teamsData);
 }
 
-export async function GetTeamPlayers(id) {
+export async function GetTeamById(id) {
+
     await connectToDB();
     
-    const players = await Players.find({ team: id });
+    const teamData = await Teams.findById(id)
+    .populate("captain")
+    .populate({
+        path: "players",
+        populate: {
+            path: "user"
+        }
+    });
     
-    return JSON.stringify(players);
+    return JSON.stringify(teamData);
+}
+
+export async function GetIndividualPlayers() {
+    await connectToDB();
+
+    await User.countDocuments();
+
+    const playersData = await Players.find({isIndividual: true})
+        .populate("user");
+
+    return JSON.stringify(playersData);
 }
 
 export async function GetTeamsAndPlayers() {
@@ -47,19 +66,9 @@ export async function GetTeamsAndPlayers() {
     .populate("payment");
     
     const playersData = await Players.find({isIndividual: true})
-        .populate("user");
+        .populate("user")
+        .populate("payment");
 
     return JSON.stringify({teamsData,playersData});
 
-}
-
-export async function GetIndividualPlayers() {
-    await connectToDB();
-
-    await User.countDocuments();
-
-    const playersData = await Players.find({isIndividual: true})
-        .populate("user");
-
-    return JSON.stringify(playersData);
 }
