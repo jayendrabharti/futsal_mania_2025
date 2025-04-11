@@ -10,7 +10,7 @@ export default function Page() {
                 Choose Registration Type
             </span>
 
-            <span className="font-bold text-2xl text-green-500">Offers Valid till 11 Apr - 11:59pm</span>
+            {/* <span className="font-bold text-2xl text-green-500">Offers Valid till 11 Apr - 11:59pm</span> */}
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-full md:max-w-2xl">
 

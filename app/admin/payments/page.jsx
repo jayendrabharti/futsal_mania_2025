@@ -1,7 +1,7 @@
 "use client"
 
 import { GetPayments, UpdatePaymentStatus } from "@/actions/payments"
-import { Check, ChevronDown, LoaderCircle, X } from "lucide-react"
+import { Check, ChevronDown, Eye, LoaderCircle, X } from "lucide-react"
 import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
@@ -92,19 +92,21 @@ export default function PaymentsPage() {
                 <Table>
                     <TableHeader>
                         <TableRow className={`bg-zinc-900 hover:bg-zinc-800`}>
+                            <TableHead>S.no.</TableHead>
                             <TableHead className="text-gray-300">Transaction ID</TableHead>
                             <TableHead className="text-gray-300">User</TableHead>
                             <TableHead className="text-gray-300">Type</TableHead>
-                            <TableHead className="text-gray-300">Amount</TableHead>
+                            {/* <TableHead className="text-gray-300">Amount</TableHead> */}
                             <TableHead className="text-gray-300">Receipt</TableHead>
-                            <TableHead className="text-gray-300">Date</TableHead>
+                            {/* <TableHead className="text-gray-300">Date</TableHead> */}
                             <TableHead className="text-gray-300">Status</TableHead>
                             <TableHead className="text-gray-300">Actions</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {filteredPayments.map((payment) => (
+                        {filteredPayments.map((payment,index) => (
                             <TableRow key={payment._id} className="hover:bg-zinc-800">
+                                <TableCell>{index+1}</TableCell>
                                 <TableCell className="font-medium text-gray-200">{payment.transactionId}</TableCell>
                                 <TableCell>
                                     <div className="flex items-center gap-2">
@@ -123,14 +125,14 @@ export default function PaymentsPage() {
                                     </div>
                                 </TableCell>
                                 <TableCell className="capitalize text-gray-200">{payment.type}</TableCell>
-                                <TableCell className="text-gray-200">₹ {payment.amount} /-</TableCell>
+                                {/* <TableCell className="text-gray-200">₹ {payment.amount} /-</TableCell> */}
                                 <TableCell>
                                     <button
                                         onClick={() => setCurrentImage(payment.imageUrl)}
-                                        className="bg-zinc-600 py-1 px-2 rounded hover:bg-zinc-500 active:ring-2 active:ring-black"
-                                    >View</button>
+                                        className="bg-zinc-600 py-1 px-2 rounded hover:bg-zinc-500 active:ring-2 active:ring-black flex items-center justify-center"
+                                    >View <Eye className="ml-1 size-5"/></button>
                                 </TableCell>
-                                <TableCell className="text-gray-200">{formatTimestamp(payment.createdAt)}</TableCell>
+                                {/* <TableCell className="text-gray-200">{formatTimestamp(payment.createdAt)}</TableCell> */}
                                 <TableCell>
                                     <Badge className={`${getStatusColor(payment.status)} text-gray-900`}>{payment.status}</Badge>
                                 </TableCell>
