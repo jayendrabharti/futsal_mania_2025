@@ -96,11 +96,6 @@ export default function TeamRegistrationForm() {
             }
         }
 
-        if(sameEmail){
-            alert("No two can have same email id");
-            return;
-        }
-
         if(!paymentImageURL){
             alert("You must Upload payment Screenshot");
             return;

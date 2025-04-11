@@ -135,15 +135,15 @@ export async function RegisterTeam(data){
         console.log(playerIds);
         
         // send confirmation mail
-        for (const p of teamList){
-            await SendConfirmation({
-                teamText: `Team Name: ${data.teamName}`,
-                name: p.name,
-                regNo: p.regNo,
-                email: p.email,
-                phone: p.phone,
-            });
-        }
+        // for (const p of teamList){
+        //     await SendConfirmation({
+        //         teamText: `Team Name: ${data.teamName}`,
+        //         name: p.name,
+        //         regNo: p.regNo,
+        //         email: p.email,
+        //         phone: p.phone,
+        //     });
+        // }
 
         await Teams.findByIdAndUpdate(teamData._id,{players: [...playerIds]});
 
