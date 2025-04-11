@@ -183,10 +183,9 @@ export async function GetAllPlayerEmailIds() {
 
         await connectToDB();
 
-        const players = await Players.find({}, { email: 1, _id: 0 });
-        const emailIds = players.map(player => player.email);
-
-        return JSON.stringify(emailIds);
+        const players = await Players.find({}, "email").lean();
+        const emailArray = players.map(player => player.email);
+        return JSON.stringify(emailArray);
     } catch (error) {
         throw new Error(`Could not fetch player email IDs: ${error.message}`);
     }

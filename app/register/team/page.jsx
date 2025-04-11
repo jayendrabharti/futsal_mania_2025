@@ -3,7 +3,7 @@
 import { Formik, Form, Field, FieldArray, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { GetAllPlayerEmailIds, RegisterTeam } from '@/actions/registeration';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { LoaderCircle, ThumbsUp } from 'lucide-react';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
@@ -19,6 +19,14 @@ export default function TeamRegistrationForm() {
     const [paymentImageURL,setPaymentImageURL] = useState(null);
     const [agreed,setAgreed] = useState(false);
     const [gettingURL,setGettingURL] = useState(false);
+
+    useEffect(()=>{
+        const call = async()=>{
+            const data = JSON.parse(await GetAllPlayerEmailIds());
+            console.log(data);
+        } 
+        call();
+    },[])
 
     const initialPlayer = { name: '', regNo: '', year: '', course: '', email: '', phone: '' };
 
