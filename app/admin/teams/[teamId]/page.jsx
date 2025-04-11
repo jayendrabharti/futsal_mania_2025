@@ -64,7 +64,10 @@ export default function TeamPage() {
 
             <div className="flex items-center space-x-4 p-4">
                 <Users className="h-8 w-8 text-blue-600 dark:text-blue-400" />
-                <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Players</h1>
+                <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+                    Players
+                    <span>({data.players.length})</span>
+                </h1>
             </div> 
 
             <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4'>
@@ -117,6 +120,7 @@ export default function TeamPage() {
             <div className="flex items-center space-x-4 p-4">
                 <IndianRupee className="h-8 w-8 text-blue-600 dark:text-blue-400" />
                 <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Payment</h1>
+                
             </div> 
 
             <div className='p-4 space-y-2 w-max'>

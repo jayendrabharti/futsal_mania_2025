@@ -47,7 +47,10 @@ export default function Teams() {
             
             <div className="flex items-center space-x-4 mb-8">
                 <Users className="h-8 w-8 text-blue-600 dark:text-blue-400" />
-                <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Participating Teams</h1>
+                <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+                    Participating Teams
+                    <span>({teams.length})</span>
+                </h1>
             </div> 
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -105,7 +108,10 @@ export default function Teams() {
 
             <div className="flex items-center space-x-4 mt-12 mb-8">
                 <User className="h-8 w-8 text-blue-600 dark:text-blue-400" />
-                <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Individual Players</h1>
+                <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+                    Individual Players
+                    <span>({individualPlayers.length})</span>
+                </h1>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
