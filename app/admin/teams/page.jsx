@@ -53,7 +53,7 @@ export default function Teams() {
                 </h1>
             </div> 
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
                 {isLoading && <LoaderCircle className='size-12 animate-spin mx-auto'/>}
                 {!teams.length && !isLoading && <span className='mx-auto text-2xl text-gray-600'>No teams Yet</span>}
                 {teams.map((team, index) => (
@@ -114,7 +114,7 @@ export default function Teams() {
                 </h1>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
                 {isLoading && <LoaderCircle className='size-12 animate-spin mx-auto'/>}
                 {!individualPlayers.length && !isLoading && <span className='mx-auto text-2xl text-gray-600'>No Individual Players Yet</span>}
                 {individualPlayers.map((p, index) => (

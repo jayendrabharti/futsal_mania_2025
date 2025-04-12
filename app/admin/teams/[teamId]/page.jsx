@@ -70,7 +70,7 @@ export default function TeamPage() {
                 </h1>
             </div> 
 
-            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4'>
+            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 p-4'>
                 {data.players.map((p,index)=>(
                     <div key={index} className="border-4 border-zinc-700 rounded-lg p-4 flex flex-col bg-zinc-800 shadow-lg hover:bg-zinc-700 space-y-2 cursor-pointer">
                         
