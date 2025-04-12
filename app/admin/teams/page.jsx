@@ -63,7 +63,7 @@ export default function Teams() {
                         onClick={()=>router.push(`/admin/teams/${team._id}`)}
                     >
                             
-                            <span className="text-2xl font-bold text-white mx-auto cursor-pointer">{team.teamName}</span>
+                            <span className="text-2xl font-bold text-center text-white mx-auto cursor-pointer">{team.teamName}</span>
                             <hr className='bg-zinc-600'/>
                             {/* captain */}
                             <div className='flex flex-row justify-start items-center'>
@@ -148,6 +148,30 @@ export default function Teams() {
                                 <span 
                                     className={` px-1 rounded-full`}
                                 >{p?.phone}</span>
+                        </div>
+
+                                                
+                        <div className='flex flex-row justify-between'>
+                                <span className='text-zinc-400'>Reg no.</span>
+                                <span 
+                                    className={` px-1 rounded-full`}
+                                >{p?.info?.regNo}</span>
+                        </div>
+
+                                                
+                        <div className='flex flex-row justify-between'>
+                                <span className='text-zinc-400'>Year</span>
+                                <span 
+                                    className={` px-1 rounded-full`}
+                                >{p?.info?.year}</span>
+                        </div>
+
+                                                
+                        <div className='flex flex-row justify-between'>
+                                <span className='text-zinc-400'>Course</span>
+                                <span 
+                                    className={` px-1 rounded-full text-end`}
+                                >{p.info.course ? p.info.course : "N/A"}</span>
                         </div>
 
                                                 

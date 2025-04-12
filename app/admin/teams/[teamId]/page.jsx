@@ -103,7 +103,7 @@ export default function TeamPage() {
                                 >{p?.email}</span>
                         </div>
 
-                                                
+                                          
                         <div className='flex flex-row justify-between'>
                                 <span className='text-zinc-400'>
                                     <Phone/>
@@ -111,6 +111,36 @@ export default function TeamPage() {
                                 <span 
                                     className={` px-1 rounded-full`}
                                 >{p?.phone}</span>
+                        </div>
+
+                                                                        
+                        <div className='flex flex-row justify-between'>
+                                <span className='text-zinc-400'>
+                                    Reg No.
+                                </span>
+                                <span 
+                                    className={` px-1 rounded-full`}
+                                >{p?.info?.regNo}</span>
+                        </div>
+
+                                                                        
+                        <div className='flex flex-row justify-between'>
+                                <span className='text-zinc-400'>
+                                    Year
+                                </span>
+                                <span 
+                                    className={` px-1 rounded-full`}
+                                >{p?.info?.year}</span>
+                        </div>
+
+                                                                        
+                        <div className='flex flex-row justify-between'>
+                                <span className='text-zinc-400'>
+                                    Course
+                                </span>
+                                <span 
+                                    className={` px-1 rounded-full`}
+                                >{p?.info?.course}</span>
                         </div>
 
                     </div>
