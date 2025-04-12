@@ -143,7 +143,7 @@ return (
                 className="size-12 rounded-full active:scale-90 transition-all duration-300"
             />
 
-            <div className={`space-y-2 absolute p-2 border border-gray-600 bg-zinc-900 top-full mt-2 right-0 rounded-xl w-max overflow-hidden transition-all  duration-100 ${menu.open ? "scale-y-100 translate-y-0" : "scale-y-0 -translate-y-1/2"}`}>
+            <div className={`space-y-2 absolute p-2 border border-gray-600 bg-zinc-900 top-full mt-2 right-0 rounded-xl w-max overflow-hidden transition-all  duration-100 ${menu.open ? "scale-y-100 scale-x-100 translate-y-0 translate-x-0" : "scale-y-0 scale-x-0 translate-x-1/2 -translate-y-1/2"}`}>
                 
                 <div className="flex flex-col items-center p-2">
                     <span>{session.user.name}</span>
