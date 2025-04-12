@@ -132,7 +132,7 @@ return (
         {session?.user 
         ? 
         <div
-         className={`cursor-pointer relative rounded-xl transition-all duration-300 flex flex-row items-center justify-center active:scale-90 ${menu.open ? "bg-zinc-800" : "bg-zinc-900"}`}
+         className={`cursor-pointer relative rounded-xl transition-all duration-300 flex flex-row items-center justify-center ${menu.open ? "bg-zinc-800" : "bg-zinc-900"}`}
          onClick={()=>{setMenu(prev=>({open: !prev.open}))}}
         >
             <Image
@@ -140,7 +140,7 @@ return (
                 alt={session.user.name} 
                 width={100}
                 height={100}
-                className="size-12 rounded-full"
+                className="size-12 rounded-full active:scale-90 transition-all duration-300"
             />
 
             <div className={`space-y-2 absolute p-2 border border-gray-600 bg-zinc-900 top-full mt-2 right-0 rounded-xl w-max overflow-hidden transition-all  duration-100 ${menu.open ? "scale-y-100 translate-y-0" : "scale-y-0 -translate-y-1/2"}`}>
@@ -152,7 +152,7 @@ return (
                 
                 <Link
                     href={`/profile`}
-                    className="text text-gray-300 hover:text-[#66f] p-2 hover:bg-zinc-800 rounded-xl transition-colors duration-300 flex flex-row w-full cursor-pointer"
+                    className="text text-gray-300 hover:text-[#66f] p-2 hover:bg-zinc-800 rounded-xl transition-all duration-300 flex flex-row w-full cursor-pointer active:scale-90"
                 >
                     <CircleUserRound className="mr-2"/>
                     Your Profile
@@ -161,14 +161,14 @@ return (
                 {session.user.isAdmin &&
                 <Link
                     href={`/admin`}
-                    className="text text-gray-300 hover:text-[#66f] p-2 hover:bg-zinc-800 rounded-xl transition-colors duration-300 flex flex-row w-full cursor-pointer"
+                    className="text text-gray-300 hover:text-[#66f] p-2 hover:bg-zinc-800 rounded-xl transition-all duration-300 flex flex-row w-full cursor-pointer active:scale-90"
                 >
                     <Lock className="mr-2"/>
                     Admin Dashboard
                 </Link>}
 
                 <button
-                    className="text text-gray-300 hover:text-[#66f] p-2 hover:bg-zinc-800 rounded-xl transition-colors duration-300 flex flex-row w-full cursor-pointer"
+                    className="text text-gray-300 hover:text-[#66f] p-2 hover:bg-zinc-800 rounded-xl transition-all duration-300 flex flex-row w-full cursor-pointer active:scale-90"
                     onClick={signOut}
                 >
                     <LogOut className="mr-2"/>
