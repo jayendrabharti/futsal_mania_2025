@@ -69,6 +69,16 @@ export default function RegisterLayout({children}){
             >Go to Dashboard</Link>
         </div>
         )
+    }else{
+        return(
+        <div className='flex flex-col justify-center h-full w-full items-center'>
+            <span className='text-5xl text-blue-400 font-bold flex flex-row mb-4'>Registrations are Closed</span>
+            <span className="text-lg">
+                Stay updated with future event at&nbsp;
+                <a href="https://iqlipse.space" target="_blank" className="underline text-blue-800 font-bold text-2xl">Iqlipse</a>
+            </span>
+        </div>
+        )
     }
 
     return children;
