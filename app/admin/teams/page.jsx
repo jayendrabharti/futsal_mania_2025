@@ -59,7 +59,7 @@ export default function Teams() {
                 {teams.map((team, index) => (
                     <div 
                         key={index} 
-                        className="border-4 border-zinc-700 rounded-lg p-4 flex flex-col bg-zinc-800 shadow-lg hover:bg-zinc-700 space-y-2 cursor-pointer"
+                        className="border-4 border-zinc-700 rounded-lg p-4 flex flex-col bg-zinc-800 shadow-lg hover:bg-zinc-700 space-y-2 cursor-pointer duration-200 transition-all active:scale-75"
                         onClick={()=>router.push(`/admin/teams/${team._id}`)}
                     >
                             
@@ -118,7 +118,7 @@ export default function Teams() {
                 {isLoading && <LoaderCircle className='size-12 animate-spin mx-auto'/>}
                 {!individualPlayers.length && !isLoading && <span className='mx-auto text-2xl text-gray-600'>No Individual Players Yet</span>}
                 {individualPlayers.map((p, index) => (
-                    <div key={index} className="border-4 border-zinc-700 rounded-lg p-4 flex flex-col bg-zinc-800 shadow-lg hover:bg-zinc-700 space-y-2 cursor-pointer">
+                    <div key={index} className="border-4 border-zinc-700 rounded-lg p-4 flex flex-col bg-zinc-800 shadow-lg hover:bg-zinc-700 space-y-2 cursor-pointer duration-200 transition-all active:scale-75">
                         
                         <div className='flex flex-row justify-start items-center'>
                             <Image
