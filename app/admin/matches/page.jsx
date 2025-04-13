@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { Plus, Save, Trophy, X, Trash } from "lucide-react"
+import { Plus, Save, Trophy, X, Trash, ChevronDown, ChevronUp } from "lucide-react"
 import { getMatches, UpdateMatches } from "@/actions/matches";
 
 export default function BracketPage() {
@@ -59,6 +59,10 @@ export default function BracketPage() {
             return newData;
         });
     };
+    
+    const save = async () => {
+        await UpdateMatches(bracketData);
+    };
 
     useEffect(() => {
         const getData = async () => {
@@ -68,14 +72,27 @@ export default function BracketPage() {
         getData();
     }, []);
 
-    const save = async () => {
-        await UpdateMatches(bracketData);
+
+    const moveMatchUp = (roundIndex, matchIndex) => {
+        if (matchIndex === 0) return;
+        setBracketData(prev => {
+            const newData = JSON.parse(JSON.stringify(prev));
+            const matches = newData.rounds[roundIndex].matches;
+            [matches[matchIndex - 1], matches[matchIndex]] = [matches[matchIndex], matches[matchIndex - 1]];
+            return newData;
+        });
     };
-
-    useEffect(()=>{
-        save();
-    },[bracketData])
-
+    
+    const moveMatchDown = (roundIndex, matchIndex) => {
+        setBracketData(prev => {
+            const newData = JSON.parse(JSON.stringify(prev));
+            const matches = newData.rounds[roundIndex].matches;
+            if (matchIndex === matches.length - 1) return newData;
+            [matches[matchIndex + 1], matches[matchIndex]] = [matches[matchIndex], matches[matchIndex + 1]];
+            return newData;
+        });
+    };
+    
     return (
         <div className="text-white overflow-y-scroll p-2">
             <div className="flex flex-row gap-4 sticky top-0 left-0">
@@ -125,6 +142,20 @@ export default function BracketPage() {
                                                 handleDeleteMatch(roundIndex, matchIndex);
                                             }}
                                         />
+                                        <div className="absolute bg-zinc-700 top-1/2 -translate-y-1/2 left-2/3 p-2 py-1 rounded-2xl">
+                                            <ChevronUp 
+                                                onClick={(e)=>{
+                                                    e.stopPropagation();
+                                                    moveMatchUp(roundIndex,matchIndex)
+                                                }}
+                                            />
+                                            <ChevronDown 
+                                                onClick={(e)=>{
+                                                    e.stopPropagation();
+                                                    moveMatchDown(roundIndex,matchIndex)
+                                                }}
+                                            />
+                                        </div>
                                         {match.live && (
                                             <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-green-500 text-xs font-bold text-black px-3 py-1 rounded-full flex items-center gap-1">
                                                 <span className="relative flex h-2 w-2">
