@@ -1,25 +1,38 @@
 "use client"
 
-import { Trophy } from "lucide-react"
+import { LoaderCircle, RefreshCcw, Trophy } from "lucide-react"
 import { getMatches } from "@/actions/matches";
 import { useEffect, useState } from "react";
 
 export default function BracketPage() {
   // Sample bracket data
   const [bracketData, setBracketData] = useState({rounds: []});
+  const [isLoading,setIsLoading] = useState(true);
+
+  const getData = async()=>{
+    setIsLoading(true);
+    const data = JSON.parse(await getMatches());
+    setBracketData(data);
+    setIsLoading(false);
+  }
 
   useEffect(()=>{
-    const getData = async()=>{
-      const data = JSON.parse(await getMatches());
-      setBracketData(data);
-    }
     getData();
   },[])
 
   return (
     <div className="text-white overflow-y-scroll p-2">
       <div className="max-w-7xl mx-auto mt-5">
+        <button
+          className="bg-zinc-700 text-xl px-3 py-2 justify-center items-center flex flex-row rounded-2xl m-4 ml-auto sticky top-0 left-0 transition-all duration-150 active:scale-90"
+          onClick={getData}
+        > 
+          {isLoading?"Reloading ...":"Reload"}
+          <RefreshCcw className={`size-6 ml-2 ${isLoading ? "animate-spin":""}`}/>
+        </button>
+        
         <div className="flex flex-row gap-8 w-full h-full">
+          {isLoading && <LoaderCircle className="fixed top-1/3 bg-black left-1/2 -translate-x-1/2 animate-spin size-14"/>}
           {bracketData.rounds.map((round, roundIndex) => (
             <div key={roundIndex} className="flex-1 min-w-[280px] flex flex-col max-w-[400px]">
               <h2 className="text-xl font-semibold mb-4 text-center py-2 bg-zinc-700 rounded-t-lg">
