@@ -26,7 +26,7 @@ return (
   <Session>
   <Analytics/>
   <body
-    className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black text-white grid grid-rows-[auto_1fr] h-[100dvh] max-h-[100dvh] overflow-hidden dark`}
+    className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black text-white grid grid-rows-[auto_1fr] h-[100dvh] max-h-[100dvh] dark overflow-y-auto`}
   >
     <Navbar/>
     {children}
