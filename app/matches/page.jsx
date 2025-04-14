@@ -3,6 +3,7 @@
 import { LoaderCircle, RefreshCcw, Trophy } from "lucide-react"
 import { getMatches } from "@/actions/matches";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 export default function BracketPage() {
   // Sample bracket data
@@ -22,14 +23,17 @@ export default function BracketPage() {
 
   return (
     <div className="text-white overflow-y-scroll p-2">
-      <div className="max-w-7xl mx-auto mt-5">
-        <button
-          className="bg-zinc-700 text-xl px-3 py-2 justify-center items-center flex flex-row rounded-2xl m-4 ml-auto sticky top-0 left-0 transition-all duration-150 active:scale-90"
-          onClick={getData}
-        > 
-          {isLoading?"Reloading ...":"Reload"}
-          <RefreshCcw className={`size-6 ml-2 ${isLoading ? "animate-spin":""}`}/>
-        </button>
+      <div className="max-w-7xl mx-auto">
+        <div className="flex flex-row items-center justify-end">
+          <Link href={'/teams'} className="bg-zinc-700 text-xl px-3 py-2 justify-center items-center flex flex-row rounded-2xl m-4 sticky top-0 left-0 transition-all duration-150 active:scale-90">Teams Details</Link>
+          <button
+            className="cursor-pointer bg-zinc-700 text-xl px-3 py-2 justify-center items-center flex flex-row rounded-2xl m-4 sticky top-0 left-0 transition-all duration-150 active:scale-90"
+            onClick={getData}
+            > 
+            {isLoading?"Reloading ...":"Reload"}
+            <RefreshCcw className={`size-6 ml-2 ${isLoading ? "animate-spin":""}`}/>
+          </button>
+        </div>
         
         <div className="flex flex-row gap-8 w-full h-full">
           {isLoading && <LoaderCircle className="fixed top-1/3 bg-black left-1/2 -translate-x-1/2 animate-spin size-14"/>}
@@ -49,7 +53,7 @@ export default function BracketPage() {
                     {match.date && 
                       <span className="absolute right-1/2 translate-x-1/2 translate-y-1/2 bottom-full bg-black px-2 rounded-full">{match.date}</span>
                     }
-                    <span className="absolute bg-zinc-900 top-1/2 -translate-y-1/2 right-[calc(100%+1px)] p-1 pl-3 rounded-l-full aspect-square">{matchIndex+1}</span>
+                    <span className="absolute bg-zinc-900 top-1/2 -translate-y-1/2 left-0 -translate-x-1/2 p-1 pl-3 rounded-l-full aspect-square">{matchIndex+1}</span>
                     {match.live && (
                       <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-green-500 text-xs font-bold text-black px-3 py-1 rounded-full flex items-center gap-1">
                         <span className="relative flex h-2 w-2">
@@ -87,7 +91,13 @@ function TeamDisplay({ team, isWinner }) {
       }`}
     >
       <div className="flex items-center gap-2">
-        <span className={`font-medium ${isWinner ? "text-white" : "text-zinc-300"}`}>{team.name}</span>
+        <span 
+          className={`font-medium ${isWinner ? "text-white" : "text-zinc-300"}`}
+        >
+          <Link href={'/teams'} className="cursor-pointer hover:underline">
+            {team.name}
+          </Link>
+        </span>
         {isWinner && <Trophy className="size-5 text-yellow-400" aria-hidden="true" />}
       </div>
       <div className={`text-lg font-bold ${isWinner ? "text-yellow-400" : "text-zinc-400"}`}>{team.score}</div>
