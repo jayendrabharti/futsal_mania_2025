@@ -217,8 +217,7 @@ export default function TeamRegistrationForm() {
                                     height={500}
                                     className='w-[200px] mx-auto rounded-2xl'
                                 />
-                                <span className='font-bold text-2xl p-2'>Pay ₹ 399 /- </span>
-                                <span className='line-through text-xl p-2'>₹ 599 /- </span>
+                                <span className='font-bold text-2xl p-2'>Pay ₹ 599 /- </span>
                                 <span>Make payment, Upload Payment Screenshot and fill in transaction ID </span>
                             </div>
                             

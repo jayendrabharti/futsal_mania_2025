@@ -174,8 +174,7 @@ return (
         height={500}
         className='w-[200px] mx-auto rounded-2xl'
         />
-        <span className='font-bold text-2xl p-2'>Pay ₹ 79 /- </span>
-        <span className='line-through text-xl p-2'>₹ 99 /- </span>
+        <span className='font-bold text-2xl p-2'>Pay ₹ 99 /- </span>
         <span>Make payment, Upload Payment Screenshot and fill in transaction ID </span>
       </div>
       
