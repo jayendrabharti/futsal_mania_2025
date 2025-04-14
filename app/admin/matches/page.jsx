@@ -1,12 +1,13 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { Plus, Save, Trophy, X, Trash, ChevronDown, ChevronUp } from "lucide-react"
+import { Plus, Save, Trophy, X, Trash, ChevronDown, ChevronUp, LoaderCircle } from "lucide-react"
 import { getMatches, UpdateMatches } from "@/actions/matches";
 
 export default function BracketPage() {
     const [bracketData, setBracketData] = useState({ rounds: [] });
     const [editingMatch, setEditingMatch] = useState(null);
+    const [isLoading,setIsLoading] = useState(true);
 
     const handleSaveMatch = (updatedMatch) => {
         if (editingMatch === null) return;
@@ -68,6 +69,7 @@ export default function BracketPage() {
         const getData = async () => {
             const data = JSON.parse(await getMatches());
             setBracketData(data);
+            setIsLoading(false);
         };
         getData();
     }, []);
@@ -97,13 +99,18 @@ export default function BracketPage() {
         <div className="text-white overflow-y-scroll p-2">
             <div className="flex flex-row gap-4 sticky top-0 left-0">
                 <Plus
-                    className="bg-zinc-600 p-1 rounded-md size-10 duration-150 transition-all active:scale-75"
+                    className="bg-zinc-600 p-1 rounded-md size-10 duration-150 transition-all active:scale-90"
                     onClick={addRound}
                 />
                 <Save
-                    className="bg-zinc-600 p-1 rounded-md size-10 duration-150 transition-all active:scale-75"
+                    className="bg-zinc-600 p-1 rounded-md size-10 duration-150 transition-all active:scale-90"
                     onClick={save}
                 />
+                {isLoading&&
+                <LoaderCircle
+                    className="p-1 rounded-md size-10 duration-150 transition-all active:scale-75 animate-spin"
+                />
+                }
             </div>
 
             <div className="max-w-7xl mx-auto mt-5">
