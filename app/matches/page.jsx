@@ -46,6 +46,9 @@ export default function BracketPage() {
                       match.live ? "border-green-500 shadow-[0_0_15px_rgba(34,197,94,0.3)]" : "border-zinc-700"
                     } bg-zinc-900 p-1 transition-all duration-300`}
                   >
+                    {match.date && 
+                      <span className="absolute right-1/2 translate-x-1/2 translate-y-1/2 bottom-full bg-black px-2 rounded-full">{match.date}</span>
+                    }
                     <span className="absolute bg-zinc-900 top-1/2 -translate-y-1/2 right-[calc(100%+1px)] p-1 pl-3 rounded-l-full aspect-square">{matchIndex+1}</span>
                     {match.live && (
                       <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-green-500 text-xs font-bold text-black px-3 py-1 rounded-full flex items-center gap-1">

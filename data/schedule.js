@@ -1,6 +1,6 @@
 export const schedule = [
   {
-    date: 'April 13, 2025',
+    date: 'April 14, 2025',
     events: [
       { time: '08:00 AM', event: 'Opening Ceremony & Team Introductions',venue: 'Block 18 ground' },
       { time: '09:00 AM - 12:00 PM', event: 'Round of 30 – Match 1 to Match 5',venue: 'Block 18 ground' },
@@ -8,49 +8,46 @@ export const schedule = [
     ]
   },
   {
-    date: 'April 14, 2025',
+    date: 'April 15, 2025',
     events: [
       { time: '05:00 PM - 07:00 PM', event: 'Round of 30 – Match 11 to Match 15',venue: 'Block 18 ground' },
     ]
   },
   {
-    date: 'April 15, 2025',
+    date: 'April 16, 2025',
     events: [
       { time: '05:00 PM - 07:00 PM', event: 'Round of 16 – Match 1 & Match 2',venue: 'Block 18 ground' },
     ]
   },
   {
-    date: 'April 16, 2025',
+    date: 'April 17, 2025',
     events: [
       { time: '05:00 PM - 07:00 PM', event: 'Round of 16 – Match 3 & Match 4' ,venue: 'Block 18 ground'},
     ]
   },
   {
-    date: 'April 17, 2025',
+    date: 'April 18, 2025',
     events: [
       { time: '05:00 PM - 07:00 PM', event: 'Round of 16 – Match 5 & Match 6',venue: 'Block 18 ground'},
     ]
   },
   {
-    date: 'April 18, 2025',
+    date: 'April 19, 2025',
     events: [
       { time: '05:00 PM - 07:00 PM', event: 'Round of 16 – Match 7 & Match 8',venue: 'Block 18 ground' },
     ]
   },
   {
-    date: 'April 19, 2025',
+    date: 'April 20, 2025',
     events: [
-      { time: '08:00 AM - 12:00 PM', event: 'Quarterfinals – Match 1 & Match 2',venue: 'Block 18 ground' },
-      { time: '04:00 PM - 07:00 PM', event: 'Quarterfinals – Match 3 & Match 4',venue: 'Block 18 ground' },
+      { time: '08:00 AM - 12:00 PM', event: 'Quarterfinals',venue: 'Block 18 ground' },
+      { time: '04:00 PM - 07:00 PM', event: 'Semifinals',venue: 'Block 18 ground' },
     ]
   },
   {
-    date: 'April 20, 2025',
+    date: 'April 21, 2025',
     events: [
-      { time: '08:00 AM - 12:00 PM', event: 'Semifinal 1 & Semifinal 2',venue: 'Block 18 ground' },
-      { time: '04:00 PM - 06:00 PM', event: '3rd Place Playoff',venue: 'Block 18 ground' },
-      { time: '06:00 PM - 08:00 PM', event: 'Grand Finale',venue: 'Block 18 ground' },
-      { time: '08:30 PM', event: 'Award Ceremony & Closing Event',venue: 'Block 18 ground' },
+      { time: '08:00 AM - 12:00 PM', event: 'Grand Finale',venue: 'Block 18 ground' },
     ]
   },
 ];

@@ -26,7 +26,7 @@ export default function BracketPage() {
                 team2: { name: "New Team 2", score: 0, winner: false },
                 live: false,
             };
-            newData.rounds[roundIndex].matches.unshift(newMatch);
+            newData.rounds[roundIndex].matches.push(newMatch);
             return newData;
         });
     };
@@ -134,6 +134,9 @@ export default function BracketPage() {
                                             match
                                         })}
                                     >
+                                        {match.date && 
+                                            <span className="absolute right-1/2 bottom-full translate-y-1/2 translate-x-1/2 bg-black px-2 rounded-full">{match.date}</span>
+                                        }
                                         <span className="absolute bg-zinc-900 top-1/2 -translate-y-1/2 right-[calc(100%+1px)] p-1 pl-3 rounded-l-full aspect-square">{matchIndex + 1}</span>
                                         <Trash
                                             className="absolute bottom-1/2 translate-y-1/2 right-10 rounded-md bg-zinc-800 p-2 size-10 text-red-500 cursor-pointer"
@@ -335,6 +338,20 @@ function MatchEditor({ match, onClose, onSave }) {
                         </label>
                     </div>
                 </div>
+                
+                <label>Date & Time&nbsp;</label>
+                <input
+                    type="text"
+                    value={editedMatch.date?editedMatch.date:""}
+                    onChange={(e) =>
+                        setEditedMatch({
+                            ...editedMatch,
+                            date: e.target.value,
+                        })
+                    }
+                    className="flex-1 border border-zinc-600 bg-zinc-700 rounded px-3 py-2 text-zinc-200"
+                />
+
 
                 <div className="mt-6 flex justify-end gap-2">
                     <button
