@@ -59,7 +59,6 @@ export default function Teams() {
                     <div 
                         key={index} 
                         className="border-4 border-zinc-700 rounded-lg p-4 flex flex-col bg-zinc-800 shadow-lg hover:bg-zinc-700 space-y-2 cursor-pointer duration-200 transition-all active:scale-75"
-                        onClick={()=>router.push(`/admin/teams/${team._id}`)}
                     >
                             
                             <span className="text-2xl font-bold text-center text-white mx-auto cursor-pointer">{team.teamName}</span>
