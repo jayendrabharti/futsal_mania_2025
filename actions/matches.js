@@ -13,10 +13,10 @@ import Matches from "@/models/matches";
 export async function getMatches(){
     try {
         await connectToDB();
-        const session = await getServerSession(authOptions);
-        if(!session) {
-            throw new Error(`Registration failed`);
-        };
+        // const session = await getServerSession(authOptions);
+        // if(!session) {
+        //     throw new Error(`Registration failed`);
+        // };
         
         const data = await Matches.find();
         return data[0].data;
