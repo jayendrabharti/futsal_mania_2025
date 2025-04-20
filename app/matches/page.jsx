@@ -51,7 +51,7 @@ export default function BracketPage() {
                     } bg-zinc-900 p-1 transition-all duration-300`}
                   >
                     {match.date && 
-                      <span className="absolute right-1/2 translate-x-1/2 translate-y-1/2 bottom-full bg-black px-2 rounded-full">{match.date}</span>
+                      <span className="absolute right-1/2 translate-x-1/2 translate-y-1/2 bottom-full bg-black px-2 rounded-full w-max">{match.date}</span>
                     }
                     <span className="absolute bg-zinc-900 top-1/2 -translate-y-1/2 left-0 -translate-x-1/2 p-1 pl-3 rounded-l-full aspect-square">{matchIndex+1}</span>
                     {match.live && (
