@@ -46,7 +46,7 @@ export default function BracketPage() {
                 {round.matches.map((match, matchIndex) => (
                   <div
                     key={matchIndex}
-                    className={`relative rounded-lg border ${
+                    className={`relative rounded-lg border my-4 ${
                       match.live ? "border-green-500 shadow-[0_0_15px_rgba(34,197,94,0.3)]" : "border-zinc-700"
                     } bg-zinc-900 p-1 transition-all duration-300`}
                   >
